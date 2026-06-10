@@ -1,0 +1,4 @@
+node_modules/
+predictions.json
+.env
+.env.local

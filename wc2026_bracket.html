@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIFA World Cup 2026 — Bracket</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#0a0e1a;--card:#111827;--card2:#1a2235;--gold:#FFD700;--green:#4ade80;--muted:#64748b;--text:#e2e8f0}
+body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:13px}
+
+/* HEADER */
+header{background:linear-gradient(135deg,#0a0e1a,#0f172a);border-bottom:2px solid var(--gold);padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+header h1{font-family:'Bebas Neue',sans-serif;font-size:1.9rem;color:var(--gold);letter-spacing:4px;white-space:nowrap}
+header .sub{color:var(--muted);font-size:0.78rem;letter-spacing:1px}
+
+/* SECTION TITLES */
+.stitle{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--gold);letter-spacing:3px;padding:10px 18px 6px;border-bottom:1px solid rgba(255,215,0,0.15);margin-bottom:10px}
+
+/* GROUP STAGE */
+.gs-wrap{padding:10px 18px}
+.gs-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+@media(max-width:900px){.gs-grid{grid-template-columns:repeat(4,1fr)}}
+.gcard{background:var(--card);border:1px solid rgba(255,255,255,0.06);border-radius:5px;overflow:hidden}
+.gchead{background:rgba(255,215,0,0.1);padding:2px 8px;font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:var(--gold);letter-spacing:2px}
+.gcbody{padding:3px 6px}
+.gct{display:flex;align-items:center;justify-content:space-between;padding:2px 0;font-size:0.75rem;border-bottom:1px solid rgba(255,255,255,0.03)}
+.gct:last-child{border-bottom:none}
+.gct .nm{display:flex;align-items:center;gap:4px}
+.dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.dg{background:var(--green)}.d3{background:var(--gold)}.dx{background:var(--muted);opacity:.4}
+.gpt{color:var(--muted);font-size:0.7rem}
+
+/* BEST 3RD NOTE */
+.b3note{margin:4px 18px 10px;background:rgba(255,215,0,0.04);border:1px solid rgba(255,215,0,0.12);border-radius:4px;padding:5px 10px;font-size:0.72rem;color:var(--muted)}
+.b3note b{color:var(--gold)}
+
+/* BRACKET TABLE */
+.bwrap{padding:4px 18px 14px;overflow-x:auto}
+table.bt{border-collapse:collapse;width:100%;table-layout:fixed}
+table.bt colgroup col:nth-child(1){width:20%}
+table.bt colgroup col:nth-child(2){width:17%}
+table.bt colgroup col:nth-child(3){width:17%}
+table.bt colgroup col:nth-child(4){width:17%}
+table.bt colgroup col:nth-child(5){width:29%}
+
+thead.bt-head th{font-family:'Bebas Neue',sans-serif;font-size:0.78rem;color:var(--muted);letter-spacing:2px;text-align:center;padding:0 4px 7px;border-bottom:1px solid rgba(255,215,0,0.15)}
+
+/* All bracket tds */
+.r32-td,.r16-td,.qf-td,.sf-td,.final-td{position:relative;padding:1px 0;vertical-align:middle}
+
+/* Connector lines: right side vertical */
+.r32-top::after,.r16-top::after,.qf-top::after,.sf-top::after{content:'';position:absolute;right:0;top:50%;height:50%;border-right:1px solid rgba(255,215,0,0.2)}
+.r32-bot::after,.r16-bot::after,.qf-bot::after,.sf-bot::after{content:'';position:absolute;right:0;top:0;height:50%;border-right:1px solid rgba(255,215,0,0.2)}
+
+/* Connector lines: left side horizontal */
+.r16-td::before,.qf-td::before,.sf-td::before,.final-td::before{content:'';position:absolute;left:0;top:50%;width:6px;height:1px;background:rgba(255,215,0,0.2)}
+
+/* Cell inner boxes */
+.bcell{border-radius:4px;padding:4px 8px;display:flex;flex-direction:column;gap:1px}
+.r32-td .bcell{background:var(--card);border:1px solid rgba(255,255,255,0.07);min-height:50px;justify-content:center;margin:1px 6px 1px 0}
+.r16-td .bcell{background:var(--card2);border:1px solid rgba(255,215,0,0.12);min-height:68px;justify-content:center;margin:2px 6px 2px 4px}
+.qf-td .bcell{background:linear-gradient(135deg,#131f30,var(--card));border:1px solid rgba(255,215,0,0.18);min-height:100px;justify-content:center;margin:3px 6px 3px 4px}
+.sf-td .bcell{background:linear-gradient(135deg,#0e1a2d,var(--card2));border:1px solid rgba(255,215,0,0.25);min-height:180px;justify-content:center;margin:4px 6px 4px 4px}
+
+/* Cell content */
+.rlbl{font-size:0.6rem;text-transform:uppercase;letter-spacing:1.5px;color:var(--muted);margin-bottom:2px}
+.bw{font-weight:700;color:var(--gold);font-size:0.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bs{font-family:'Bebas Neue',sans-serif;font-size:0.95rem;color:rgba(255,215,0,0.55);letter-spacing:2px;line-height:1.1}
+.bl{color:var(--muted);font-size:0.77rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.aet{display:inline-block;background:rgba(59,130,246,0.18);color:#93c5fd;border:1px solid rgba(59,130,246,0.25);border-radius:2px;font-size:0.58rem;padding:1px 4px;font-weight:700;letter-spacing:.5px;vertical-align:middle;margin-left:3px}
+
+/* FINAL cell */
+.final-td{padding:2px 0 2px 4px}
+.final-box{background:linear-gradient(135deg,#0f1a2e,#1a1a30,#0f1a2e);border:2px solid var(--gold);border-radius:10px;padding:14px 16px;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:640px;position:relative;overflow:hidden}
+.final-box::before{content:'🏆';position:absolute;font-size:180px;opacity:.03;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.final-box .fl{font-size:0.65rem;text-transform:uppercase;letter-spacing:3px;color:var(--muted)}
+.final-box .fw{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;color:var(--gold);letter-spacing:3px;text-shadow:0 0 20px rgba(255,215,0,0.3);white-space:nowrap}
+.final-box .fsc{font-family:'Bebas Neue',sans-serif;font-size:3.5rem;color:var(--gold);letter-spacing:8px;text-shadow:0 0 30px rgba(255,215,0,0.4);line-height:1}
+.final-box .fvsep{font-size:0.7rem;color:var(--muted);letter-spacing:2px}
+.final-box .flo{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;color:var(--muted);letter-spacing:2px;white-space:nowrap}
+.final-box .fvn{font-size:0.68rem;color:var(--muted);margin-top:6px;opacity:.7}
+.final-box .fsep{width:60px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.4),transparent);margin:4px auto}
+
+/* THIRD PLACE */
+.third-wrap{padding:8px 18px 10px;display:flex;align-items:center;gap:12px}
+.tpl{font-family:'Bebas Neue',sans-serif;font-size:0.85rem;color:var(--muted);letter-spacing:2px;white-space:nowrap}
+.tp-match{background:var(--card);border:1px solid rgba(255,255,255,0.07);border-radius:5px;padding:6px 14px;display:flex;align-items:center;gap:10px;font-size:0.82rem}
+.tp-match .w{color:var(--gold);font-weight:700}
+.tp-match .sc{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--gold);letter-spacing:2px}
+.tp-match .l{color:var(--muted)}
+.tp-match .vn{font-size:0.68rem;color:var(--muted);margin-left:10px}
+
+/* AWARDS */
+.aw-wrap{padding:0 18px 14px;display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.aw{background:var(--card);border:1px solid rgba(255,215,0,0.15);border-radius:6px;padding:8px 12px;text-align:center}
+.aw .ai{font-size:1.4rem}
+.aw .at{font-family:'Bebas Neue',sans-serif;font-size:0.78rem;color:var(--gold);letter-spacing:2px}
+.aw .ap{font-weight:700;font-size:0.88rem;margin:3px 0 1px}
+.aw .am{font-size:0.72rem;color:var(--muted)}
+
+/* FOOTER */
+footer{border-top:1px solid rgba(255,255,255,0.05);padding:8px 18px;text-align:center;color:var(--muted);font-size:0.7rem}
+footer b{color:var(--gold)}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <h1>FIFA WORLD CUP 2026</h1>
+  <div class="sub">🇺🇸 USA &nbsp;·&nbsp; 🇨🇦 Canada &nbsp;·&nbsp; 🇲🇽 Mexico &nbsp;·&nbsp; Jun 11 – Jul 19, 2026 &nbsp;·&nbsp; 48 teams</div>
+</header>
+
+<!-- GROUP STAGE -->
+<div class="stitle">Group Stage</div>
+<div class="gs-wrap">
+<div class="gs-grid">
+
+  <div class="gcard"><div class="gchead">Group A</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇲🇽 Mexico</span><span class="gpt">7</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇰🇷 S.Korea</span><span class="gpt">6</span></div>
+    <div class="gct"><span class="nm"><span class="dot d3"></span>🇨🇿 Czechia</span><span class="gpt">4</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇿🇦 S.Africa</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group B</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇨🇭 Switzerland</span><span class="gpt">7</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇨🇦 Canada</span><span class="gpt">7</span></div>
+    <div class="gct"><span class="nm"><span class="dot d3"></span>🇧🇦 Bosnia</span><span class="gpt">3</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇶🇦 Qatar</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group C</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇧🇷 Brazil</span><span class="gpt">7</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇲🇦 Morocco</span><span class="gpt">6</span></div>
+    <div class="gct"><span class="nm"><span class="dot d3"></span>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</span><span class="gpt">4</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇭🇹 Haiti</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group D</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇺🇸 USA</span><span class="gpt">7</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇹🇷 Türkiye</span><span class="gpt">5</span></div>
+    <div class="gct"><span class="nm"><span class="dot d3"></span>🇵🇾 Paraguay</span><span class="gpt">4</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇦🇺 Australia</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group E</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇩🇪 Germany</span><span class="gpt">7</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇪🇨 Ecuador</span><span class="gpt">5</span></div>
+    <div class="gct"><span class="nm"><span class="dot d3"></span>🇨🇮 Iv.Coast</span><span class="gpt">4</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇨🇼 Curaçao</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group F</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇳🇱 Netherlands</span><span class="gpt">7</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇯🇵 Japan</span><span class="gpt">5</span></div>
+    <div class="gct"><span class="nm"><span class="dot d3"></span>🇸🇪 Sweden</span><span class="gpt">4</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇹🇳 Tunisia</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group G</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇧🇪 Belgium</span><span class="gpt">9</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇪🇬 Egypt</span><span class="gpt">6</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇮🇷 Iran</span><span class="gpt">3</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇳🇿 New Zealand</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group H</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇪🇸 Spain</span><span class="gpt">9</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇺🇾 Uruguay</span><span class="gpt">6</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇸🇦 S.Arabia</span><span class="gpt">3</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇨🇻 C.Verde</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group I</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇫🇷 France</span><span class="gpt">9</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇳🇴 Norway</span><span class="gpt">6</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇸🇳 Senegal</span><span class="gpt">3</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇮🇶 Iraq</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group J</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇦🇷 Argentina</span><span class="gpt">7</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇦🇹 Austria</span><span class="gpt">6</span></div>
+    <div class="gct"><span class="nm"><span class="dot d3"></span>🇩🇿 Algeria</span><span class="gpt">4</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇯🇴 Jordan</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group K</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇵🇹 Portugal</span><span class="gpt">9</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇨🇴 Colombia</span><span class="gpt">6</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇨🇩 DR Congo</span><span class="gpt">3</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇺🇿 Uzbekistan</span><span class="gpt">0</span></div>
+  </div></div>
+
+  <div class="gcard"><div class="gchead">Group L</div><div class="gcbody">
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="gpt">7</span></div>
+    <div class="gct"><span class="nm"><span class="dot dg"></span>🇭🇷 Croatia</span><span class="gpt">6</span></div>
+    <div class="gct"><span class="nm"><span class="dot d3"></span>🇬🇭 Ghana</span><span class="gpt">4</span></div>
+    <div class="gct"><span class="nm"><span class="dot dx"></span>🇵🇦 Panama</span><span class="gpt">0</span></div>
+  </div></div>
+
+</div>
+</div>
+
+<div class="b3note">
+  <b>Best 3rd → R32:</b>
+  🇵🇾 Paraguay &nbsp;·&nbsp; 🇨🇮 Ivory Coast &nbsp;·&nbsp; 🇸🇪 Sweden &nbsp;·&nbsp; 🇩🇿 Algeria &nbsp;·&nbsp; 🇨🇿 Czechia &nbsp;·&nbsp; 🇬🇭 Ghana &nbsp;·&nbsp; 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland &nbsp;·&nbsp; 🇧🇦 Bosnia
+</div>
+
+<!-- BRACKET -->
+<div class="stitle">Knockout Bracket</div>
+<div class="bwrap">
+<table class="bt">
+<colgroup><col><col><col><col><col></colgroup>
+<thead class="bt-head">
+  <tr>
+    <th>ROUND OF 32</th>
+    <th>ROUND OF 16</th>
+    <th>QUARTER-FINALS</th>
+    <th>SEMI-FINALS</th>
+    <th>FINAL · Jul 19 · MetLife NJ</th>
+  </tr>
+</thead>
+<tbody>
+
+<!-- ROW 1 -->
+<tr>
+  <td class="r32-td r32-top">
+    <div class="bcell">
+      <span class="bw">🇪🇸 Spain</span>
+      <span class="bs">4–0</span>
+      <span class="bl">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</span>
+    </div>
+  </td>
+  <td class="r16-td r16-top" rowspan="2">
+    <div class="bcell">
+      <span class="rlbl">R16</span>
+      <span class="bw">🇪🇸 Spain</span>
+      <span class="bs">2–0</span>
+      <span class="bl">🇺🇾 Uruguay</span>
+    </div>
+  </td>
+  <td class="qf-td qf-top" rowspan="4">
+    <div class="bcell">
+      <span class="rlbl">Quarter-Final</span>
+      <span class="bw">🇪🇸 Spain</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇳🇱 Netherlands</span>
+    </div>
+  </td>
+  <td class="sf-td sf-top" rowspan="8">
+    <div class="bcell">
+      <span class="rlbl">Semi-Final 1</span>
+      <span class="bw">🇪🇸 Spain</span>
+      <span class="bs">2–0</span>
+      <span class="bl">🇧🇷 Brazil</span>
+    </div>
+  </td>
+  <td class="final-td" rowspan="16">
+    <div class="final-box">
+      <div class="fl">🏆 World Cup Final</div>
+      <div class="fl">MetLife Stadium · New Jersey</div>
+      <div class="fl">19 July 2026</div>
+      <div class="fsep"></div>
+      <div class="fw">🇪🇸 Spain</div>
+      <div class="fsc">2–1</div>
+      <div class="fvsep">vs</div>
+      <div class="flo">🇫🇷 France</div>
+      <div class="fsep"></div>
+      <div class="fvn">Goals: Fabián Ruiz 41' · Lamine Yamal 75'<br>Mbappé 37'</div>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 2 -->
+<tr>
+  <td class="r32-td r32-bot">
+    <div class="bcell">
+      <span class="bw">🇺🇾 Uruguay</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇯🇵 Japan</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 3 -->
+<tr>
+  <td class="r32-td r32-top">
+    <div class="bcell">
+      <span class="bw">🇳🇱 Netherlands</span>
+      <span class="bs">3–1</span>
+      <span class="bl">🇪🇨 Ecuador</span>
+    </div>
+  </td>
+  <td class="r16-td r16-bot" rowspan="2">
+    <div class="bcell">
+      <span class="rlbl">R16</span>
+      <span class="bw">🇳🇱 Netherlands</span>
+      <span class="bs">2–1 <span class="aet">AET</span></span>
+      <span class="bl">🇹🇷 Türkiye</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 4 -->
+<tr>
+  <td class="r32-td r32-bot">
+    <div class="bcell">
+      <span class="bw">🇹🇷 Türkiye</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇪🇬 Egypt</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 5 -->
+<tr>
+  <td class="r32-td r32-top">
+    <div class="bcell">
+      <span class="bw">🇧🇷 Brazil</span>
+      <span class="bs">3–0</span>
+      <span class="bl">🇸🇪 Sweden</span>
+    </div>
+  </td>
+  <td class="r16-td r16-top" rowspan="2">
+    <div class="bcell">
+      <span class="rlbl">R16</span>
+      <span class="bw">🇧🇷 Brazil</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇺🇸 USA</span>
+    </div>
+  </td>
+  <td class="qf-td qf-bot" rowspan="4">
+    <div class="bcell">
+      <span class="rlbl">Quarter-Final</span>
+      <span class="bw">🇧🇷 Brazil</span>
+      <span class="bs">2–1 <span class="aet">AET</span></span>
+      <span class="bl">🇩🇪 Germany</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 6 -->
+<tr>
+  <td class="r32-td r32-bot">
+    <div class="bcell">
+      <span class="bw">🇺🇸 USA</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇲🇦 Morocco</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 7 -->
+<tr>
+  <td class="r32-td r32-top">
+    <div class="bcell">
+      <span class="bw">🇩🇪 Germany</span>
+      <span class="bs">4–1</span>
+      <span class="bl">🇧🇦 Bosnia</span>
+    </div>
+  </td>
+  <td class="r16-td r16-bot" rowspan="2">
+    <div class="bcell">
+      <span class="rlbl">R16</span>
+      <span class="bw">🇩🇪 Germany</span>
+      <span class="bs">2–0</span>
+      <span class="bl">🇧🇪 Belgium</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 8 -->
+<tr>
+  <td class="r32-td r32-bot">
+    <div class="bcell">
+      <span class="bw">🇧🇪 Belgium</span>
+      <span class="bs">2–0</span>
+      <span class="bl">🇨🇿 Czechia</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 9 -->
+<tr>
+  <td class="r32-td r32-top">
+    <div class="bcell">
+      <span class="bw">🇫🇷 France</span>
+      <span class="bs">4–0</span>
+      <span class="bl">🇬🇭 Ghana</span>
+    </div>
+  </td>
+  <td class="r16-td r16-top" rowspan="2">
+    <div class="bcell">
+      <span class="rlbl">R16</span>
+      <span class="bw">🇫🇷 France</span>
+      <span class="bs">3–0</span>
+      <span class="bl">🇲🇽 Mexico</span>
+    </div>
+  </td>
+  <td class="qf-td qf-top" rowspan="4">
+    <div class="bcell">
+      <span class="rlbl">Quarter-Final</span>
+      <span class="bw">🇫🇷 France</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇵🇹 Portugal</span>
+    </div>
+  </td>
+  <td class="sf-td sf-bot" rowspan="8">
+    <div class="bcell">
+      <span class="rlbl">Semi-Final 2</span>
+      <span class="bw">🇫🇷 France</span>
+      <span class="bs">2–1 <span class="aet">AET</span></span>
+      <span class="bl">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 10 -->
+<tr>
+  <td class="r32-td r32-bot">
+    <div class="bcell">
+      <span class="bw">🇲🇽 Mexico</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇩🇿 Algeria</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 11 -->
+<tr>
+  <td class="r32-td r32-top">
+    <div class="bcell">
+      <span class="bw">🇵🇹 Portugal</span>
+      <span class="bs">2–0</span>
+      <span class="bl">🇦🇹 Austria</span>
+    </div>
+  </td>
+  <td class="r16-td r16-bot" rowspan="2">
+    <div class="bcell">
+      <span class="rlbl">R16</span>
+      <span class="bw">🇵🇹 Portugal</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇳🇴 Norway</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 12 -->
+<tr>
+  <td class="r32-td r32-bot">
+    <div class="bcell">
+      <span class="bw">🇳🇴 Norway</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇨🇮 Ivory Coast</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 13 -->
+<tr>
+  <td class="r32-td r32-top">
+    <div class="bcell">
+      <span class="bw">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇨🇴 Colombia</span>
+    </div>
+  </td>
+  <td class="r16-td r16-top" rowspan="2">
+    <div class="bcell">
+      <span class="rlbl">R16</span>
+      <span class="bw">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span>
+      <span class="bs">2–1 <span class="aet">AET</span></span>
+      <span class="bl">🇨🇭 Switzerland</span>
+    </div>
+  </td>
+  <td class="qf-td qf-bot" rowspan="4">
+    <div class="bcell">
+      <span class="rlbl">Quarter-Final</span>
+      <span class="bw">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span>
+      <span class="bs">2–1 <span class="aet">AET</span></span>
+      <span class="bl">🇦🇷 Argentina</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 14 -->
+<tr>
+  <td class="r32-td r32-bot">
+    <div class="bcell">
+      <span class="bw">🇨🇭 Switzerland</span>
+      <span class="bs">2–1</span>
+      <span class="bl">🇰🇷 South Korea</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 15 -->
+<tr>
+  <td class="r32-td r32-top">
+    <div class="bcell">
+      <span class="bw">🇦🇷 Argentina</span>
+      <span class="bs">3–0</span>
+      <span class="bl">🇨🇦 Canada</span>
+    </div>
+  </td>
+  <td class="r16-td r16-bot" rowspan="2">
+    <div class="bcell">
+      <span class="rlbl">R16</span>
+      <span class="bw">🇦🇷 Argentina</span>
+      <span class="bs">2–0</span>
+      <span class="bl">🇭🇷 Croatia</span>
+    </div>
+  </td>
+</tr>
+
+<!-- ROW 16 -->
+<tr>
+  <td class="r32-td r32-bot">
+    <div class="bcell">
+      <span class="bw">🇭🇷 Croatia</span>
+      <span class="bs">2–1 <span class="aet">AET</span></span>
+      <span class="bl">🇵🇾 Paraguay</span>
+    </div>
+  </td>
+</tr>
+
+</tbody>
+</table>
+</div>
+
+<!-- THIRD PLACE -->
+<div class="stitle">3rd Place Play-off · Jul 18 · Levi's Stadium, San Francisco</div>
+<div class="third-wrap">
+  <span class="tpl">BRONZE</span>
+  <div class="tp-match">
+    <span class="w">🇧🇷 Brazil</span>
+    <span class="sc">2–1</span>
+    <span class="l">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span>
+    <span class="vn">Neymar 34' · Vinicius 67' &nbsp;|&nbsp; Kane 58'</span>
+  </div>
+</div>
+
+<!-- AWARDS -->
+<div class="stitle">Tournament Awards</div>
+<div class="aw-wrap">
+  <div class="aw">
+    <div class="ai">🥇</div>
+    <div class="at">Golden Boot</div>
+    <div class="ap">Kylian Mbappé</div>
+    <div class="am">🇫🇷 France · 8 goals</div>
+  </div>
+  <div class="aw">
+    <div class="ai">🏆</div>
+    <div class="at">Golden Ball</div>
+    <div class="ap">Pedri</div>
+    <div class="am">🇪🇸 Spain · Best player</div>
+  </div>
+  <div class="aw">
+    <div class="ai">🧤</div>
+    <div class="at">Golden Glove</div>
+    <div class="ap">Mike Maignan</div>
+    <div class="am">🇫🇷 France · Best goalkeeper</div>
+  </div>
+</div>
+
+<footer>
+  <b>FIFA World Cup 2026 Bracket Prediction</b> · Generated by Claude (claude.ai/code) · Based on June 2026 FIFA Rankings, ESPN, bookmaker consensus &nbsp;·&nbsp; <span style="opacity:.6">For entertainment purposes</span>
+</footer>
+
+</body>
+</html>

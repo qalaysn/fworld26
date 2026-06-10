@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FIFA World Cup 2026 — Complete Prediction</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0e1a;
+    --card: #111827;
+    --card2: #1a2235;
+    --gold: #FFD700;
+    --gold2: #FFA500;
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --green: #22c55e;
+    --yellow: #eab308;
+    --red: #ef4444;
+    --blue: #3b82f6;
+  }
+  body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+  a { color: var(--gold); }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0a0e1a 0%, #0f172a 40%, #1a1f35 100%);
+    border-bottom: 3px solid var(--gold);
+    text-align: center;
+    padding: 60px 20px 50px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(255,215,0,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-flags { font-size: 2.5rem; letter-spacing: 10px; margin-bottom: 16px; }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 10vw, 7rem);
+    color: var(--gold);
+    letter-spacing: 4px;
+    line-height: 1;
+    text-shadow: 0 0 40px rgba(255,215,0,0.3);
+  }
+  .hero h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.2rem, 4vw, 2rem);
+    color: var(--text);
+    letter-spacing: 6px;
+    margin-top: 8px;
+    opacity: 0.85;
+  }
+  .hero-line {
+    width: 200px; height: 3px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 20px auto;
+  }
+  .hero-meta { color: var(--muted); font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* CONTAINER */
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  /* SECTION TITLES */
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.8rem, 5vw, 2.8rem);
+    color: var(--gold);
+    letter-spacing: 3px;
+    border-left: 4px solid var(--gold);
+    padding-left: 16px;
+    margin: 50px 0 24px;
+  }
+
+  /* RESEARCH BOX */
+  .research-box {
+    background: var(--card);
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 12px;
+    padding: 28px 32px;
+    margin: 40px 0;
+  }
+  .research-box h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+  .research-item { background: var(--card2); border-radius: 8px; padding: 14px 16px; }
+  .research-item .label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); margin-bottom: 6px; }
+  .research-item p { font-size: 0.88rem; color: var(--text); line-height: 1.5; }
+  .key-finding {
+    background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(255,215,0,0.02));
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: var(--text);
+  }
+  .key-finding strong { color: var(--gold); }
+
+  /* GROUPS GRID */
+  .groups-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+  @media (max-width: 860px) { .groups-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .groups-grid { grid-template-columns: 1fr; } }
+
+  .group-card {
+    background: var(--card);
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.06);
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .group-card:hover { transform: translateY(-2px); border-color: rgba(255,215,0,0.25); }
+  .group-header {
+    background: linear-gradient(135deg, rgba(255,215,0,0.15), rgba(255,215,0,0.05));
+    border-bottom: 1px solid rgba(255,215,0,0.2);
+    padding: 10px 16px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .group-letter {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+  .group-body { padding: 14px 16px; }
+
+  /* Teams list */
+  .team-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    font-size: 0.85rem;
+  }
+  .team-row:last-child { border-bottom: none; }
+  .team-name { display: flex; align-items: center; gap: 7px; font-weight: 500; }
+  .badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .badge-advance { background: rgba(34,197,94,0.2); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .badge-best3 { background: rgba(234,179,8,0.2); color: #fbbf24; border: 1px solid rgba(234,179,8,0.3); }
+  .badge-out { background: rgba(100,116,139,0.2); color: #94a3b8; border: 1px solid rgba(100,116,139,0.2); }
+
+  /* Match results in group */
+  .group-matches { margin-top: 12px; }
+  .group-matches-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); margin-bottom: 6px; }
+  .match-line {
+    font-size: 0.82rem;
+    padding: 4px 0;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+  }
+  .match-line:last-child { border-bottom: none; }
+  .match-score { color: var(--gold); font-weight: 700; white-space: nowrap; margin: 0 8px; }
+  .match-team { flex: 1; }
+  .match-team.right { text-align: right; }
+
+  /* Standings table */
+  .standings { margin-top: 12px; width: 100%; border-collapse: collapse; font-size: 0.78rem; }
+  .standings th { color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; padding: 4px 6px; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.07); }
+  .standings th:first-child { text-align: left; }
+  .standings td { padding: 5px 6px; text-align: center; }
+  .standings td:first-child { text-align: left; font-weight: 500; }
+  .standings tr:nth-child(2) td { background: rgba(34,197,94,0.06); }
+  .standings tr:nth-child(3) td { background: rgba(34,197,94,0.04); }
+  .standings tr.best3rd td { background: rgba(234,179,8,0.05); }
+  .standings .pts { color: var(--gold); font-weight: 700; }
+  .standings .gd-pos { color: #4ade80; }
+  .standings .gd-neg { color: #f87171; }
+  .standings .gd-zero { color: var(--muted); }
+
+  /* KNOCKOUT */
+  .knockout-stage { margin-top: 10px; }
+
+  /* Round label */
+  .round-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.6rem;
+    color: var(--gold);
+    letter-spacing: 3px;
+    margin: 36px 0 16px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .round-label::after {
+    content: '';
+    flex: 1; height: 1px;
+    background: linear-gradient(90deg, rgba(255,215,0,0.4), transparent);
+  }
+
+  /* Match cards grid */
+  .matches-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  @media (max-width: 680px) { .matches-grid { grid-template-columns: 1fr; } }
+  .matches-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  @media (max-width: 900px) { .matches-grid-4 { grid-template-columns: repeat(2, 1fr); } }
+
+  .match-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 16px 18px;
+    transition: border-color 0.2s;
+  }
+  .match-card:hover { border-color: rgba(255,215,0,0.2); }
+  .match-card .match-num { font-size: 0.68rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 10px; }
+  .match-card .teams {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 8px; margin-bottom: 10px;
+  }
+  .match-card .team-a, .match-card .team-b {
+    flex: 1; font-weight: 600; font-size: 0.95rem;
+  }
+  .match-card .team-b { text-align: right; }
+  .match-card .score-box {
+    background: rgba(255,215,0,0.1);
+    border: 1px solid rgba(255,215,0,0.3);
+    border-radius: 6px;
+    padding: 4px 12px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.4rem;
+    color: var(--gold);
+    letter-spacing: 3px;
+    white-space: nowrap;
+  }
+  .match-card .winner-tag {
+    font-size: 0.7rem;
+    color: var(--green);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .match-card .extra-badge {
+    display: inline-block;
+    background: rgba(59,130,246,0.2);
+    color: #93c5fd;
+    border: 1px solid rgba(59,130,246,0.3);
+    border-radius: 4px;
+    font-size: 0.68rem;
+    padding: 2px 7px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-left: 8px;
+  }
+  .match-card .reasoning {
+    font-size: 0.82rem;
+    color: var(--muted);
+    font-style: italic;
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 8px;
+    margin-top: 4px;
+    line-height: 1.5;
+  }
+  .match-card.winner-left .team-a { color: var(--green); }
+  .match-card.winner-right .team-b { color: var(--green); }
+
+  /* R32 compact grid */
+  .r32-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+  @media (max-width: 900px) { .r32-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 500px) { .r32-grid { grid-template-columns: 1fr; } }
+  .r32-card {
+    background: var(--card);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+  }
+  .r32-card .r32-num { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; }
+  .r32-match-row { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin: 4px 0; }
+  .r32-team { font-weight: 500; flex: 1; }
+  .r32-team.winner { color: var(--green); font-weight: 700; }
+  .r32-score { color: var(--gold); font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; letter-spacing: 2px; }
+  .r32-note { font-size: 0.7rem; color: var(--muted); font-style: italic; margin-top: 6px; }
+
+  /* QF / SF cards (larger) */
+  .big-match-card {
+    background: var(--card);
+    border: 1px solid rgba(255,215,0,0.15);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 16px;
+  }
+  .big-match-card .match-header { font-size: 0.7rem; color: var(--muted); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 14px; display: flex; align-items: center; justify-content: space-between; }
+  .big-match-card .teams {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 16px; margin-bottom: 16px;
+  }
+  .big-match-card .team { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 1px; }
+  .big-match-card .team.winner { color: var(--gold); }
+  .big-match-card .team.right { text-align: right; }
+  .big-match-card .vs-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.2rem;
+    color: var(--gold);
+    letter-spacing: 4px;
+    text-align: center;
+  }
+  .big-match-card .reasoning-block {
+    font-size: 0.88rem;
+    color: var(--muted);
+    font-style: italic;
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding-top: 14px;
+    line-height: 1.65;
+  }
+
+  /* SF cards */
+  .sf-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  @media (max-width: 680px) { .sf-grid { grid-template-columns: 1fr; } }
+
+  /* FINAL */
+  .final-section {
+    background: linear-gradient(135deg, #0f1a2e 0%, #1a1a2e 50%, #0f1a2e 100%);
+    border: 2px solid var(--gold);
+    border-radius: 16px;
+    padding: 40px 36px;
+    margin: 30px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .final-section::before {
+    content: '🏆';
+    position: absolute;
+    font-size: 200px;
+    opacity: 0.03;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .final-label {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 6px;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .final-stadium { font-size: 0.8rem; color: var(--muted); margin-bottom: 24px; }
+  .final-teams {
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; gap: 24px; margin-bottom: 28px;
+  }
+  .final-team-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2rem, 6vw, 3.5rem); }
+  .final-team-name.winner { color: var(--gold); }
+  .final-team-name.right { text-align: right; }
+  .final-vs-score {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
+    color: var(--gold);
+    letter-spacing: 6px;
+    text-shadow: 0 0 30px rgba(255,215,0,0.4);
+  }
+  .final-reasoning {
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.75;
+    max-width: 750px;
+    margin: 0 auto;
+    text-align: left;
+  }
+  .final-reasoning em { color: var(--gold); font-style: normal; font-weight: 600; }
+
+  /* AWARDS */
+  .awards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 24px 0; }
+  @media (max-width: 680px) { .awards-grid { grid-template-columns: 1fr; } }
+  .award-card {
+    background: var(--card);
+    border: 1px solid rgba(255,215,0,0.2);
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .award-icon { font-size: 2.8rem; margin-bottom: 12px; }
+  .award-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; color: var(--gold); letter-spacing: 2px; margin-bottom: 8px; }
+  .award-player { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .award-team { font-size: 0.82rem; color: var(--muted); margin-bottom: 10px; }
+  .award-note { font-size: 0.82rem; color: var(--muted); font-style: italic; line-height: 1.5; }
+
+  /* THIRD PLACE */
+  .third-card {
+    background: var(--card);
+    border: 1px solid rgba(200,200,200,0.15);
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin: 20px 0;
+  }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid rgba(255,255,255,0.07);
+    padding: 30px 20px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.82rem;
+    margin-top: 60px;
+  }
+  footer strong { color: var(--gold); }
+
+  /* BRACKET VISUAL */
+  .bracket-wrap { overflow-x: auto; }
+  .bracket {
+    display: flex;
+    gap: 0;
+    min-width: 900px;
+    align-items: center;
+    padding: 20px 0;
+  }
+  .bracket-round { display: flex; flex-direction: column; justify-content: space-around; flex: 1; gap: 8px; padding: 0 4px; }
+  .bracket-round-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 0.85rem;
+    color: var(--muted);
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 8px;
+  }
+  .bracket-match {
+    background: var(--card2);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 6px;
+    padding: 6px 10px;
+    font-size: 0.75rem;
+    min-width: 130px;
+  }
+  .bracket-match .bt { padding: 3px 0; display: flex; justify-content: space-between; gap: 8px; }
+  .bracket-match .bt.win { color: var(--gold); font-weight: 700; }
+  .bracket-match .bt .sc { color: var(--gold); font-weight: 700; }
+
+  /* DIVIDER */
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,215,0,0.2), transparent); margin: 30px 0; }
+
+  /* BEST 3RD NOTE */
+  .best3-note {
+    background: rgba(234,179,8,0.07);
+    border: 1px solid rgba(234,179,8,0.2);
+    border-radius: 8px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    color: var(--text);
+    margin: 16px 0 24px;
+  }
+  .best3-note strong { color: var(--yellow); }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-flags">🇺🇸 🇨🇦 🇲🇽</div>
+  <h1>FIFA WORLD CUP 2026</h1>
+  <h2>Complete Tournament Prediction</h2>
+  <div class="hero-line"></div>
+  <div class="hero-meta">June 11 – July 19, 2026 &nbsp;|&nbsp; USA · Canada · Mexico &nbsp;|&nbsp; 48 Teams · 104 Matches</div>
+</div>
+
+<div class="container">
+
+<!-- RESEARCH SUMMARY -->
+<div class="section-title">Research Summary</div>
+<div class="research-box">
+  <h3>Sources Consulted &amp; Key Intelligence</h3>
+  <div class="research-grid">
+    <div class="research-item">
+      <div class="label">FIFA Rankings (June 2026)</div>
+      <p>Argentina #1 · Spain #2 · France #3 · England #4 · Portugal #5 · Brazil #6. Argentina reclaimed top spot ahead of tournament kickoff (football-ranking.com, June 2026).</p>
+    </div>
+    <div class="research-item">
+      <div class="label">Bookmaker Odds Consensus</div>
+      <p>Spain (+450) and France (+475) are co-favorites per ESPN, Covers.com, FanDuel and Oddschecker. England (+700), Brazil (+900), Portugal (+850), Argentina (+900), Germany (+1300).</p>
+    </div>
+    <div class="research-item">
+      <div class="label">Expert Media Picks</div>
+      <p>ESPN full bracket simulation: Spain wins, beating Argentina in the Final 2–1. French-language and Russian-language sources (championat.com, sport-express.ru) also lean France or Spain as champion.</p>
+    </div>
+    <div class="research-item">
+      <div class="label">Key Injuries</div>
+      <p>Spain: Lamine Yamal (hamstring, may miss GS opener); Fermin Lopez (out, metatarsal). Brazil: Neymar (calf, doubt), Rodrygo, Eder Militao, Estevao, Wesley (all out). Germany: Karl, Gnabry, Ter Stegen out. Neuer (40) returned from retirement.</p>
+    </div>
+    <div class="research-item">
+      <div class="label">Squad Highlights</div>
+      <p>France: Mbappé (Real Madrid, in top form) + Ballon d'Or Dembélé + Olise + Doué. Spain: deepest midfield in world football — Rodri, Pedri, Gavi, Zubimendi, Fabian, Olmo, Merino. Portugal: Ronaldo's record 6th WC; Bruno Fernandes 21 PL assists.</p>
+    </div>
+    <div class="research-item">
+      <div class="label">Tournament Draw</div>
+      <p>Draw held Dec 5, 2025, Washington D.C. Hosts pre-seeded: Mexico (A1), Canada (B1), USA (D1). Spain lands in Group H with Uruguay. France in Group I. Argentina in Group J.</p>
+    </div>
+  </div>
+  <div class="key-finding">
+    <strong>Analyst Consensus:</strong> This is essentially a two-horse race between <strong>Spain</strong> and <strong>France</strong>, with Argentina (defending champions) the main wildcard. Spain's midfield depth and tactical cohesion under De la Fuente make them the most complete team in the tournament. France's firepower — headlined by Mbappé, Dembélé, and Olise — gives them the highest ceiling. We predict <strong>Spain 2–1 France</strong> in the MetLife Stadium Final.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ GROUP STAGE ══════════════════════════════════════════ -->
+<div class="section-title">Group Stage</div>
+
+<div class="groups-grid">
+
+  <!-- GROUP A -->
+  <div class="group-card">
+    <div class="group-header">
+      <span class="group-letter">Group A</span>
+    </div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇲🇽 Mexico</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇰🇷 South Korea</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇨🇿 Czechia</span><span class="badge badge-best3">Best 3rd</span></div>
+      <div class="team-row"><span class="team-name">🇿🇦 South Africa</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇲🇽 Mexico</span><span class="match-score">2–1</span><span class="match-team right">South Korea 🇰🇷</span></div>
+        <div class="match-line"><span class="match-team">🇿🇦 S.Africa</span><span class="match-score">0–2</span><span class="match-team right">Czechia 🇨🇿</span></div>
+        <div class="match-line"><span class="match-team">🇲🇽 Mexico</span><span class="match-score">3–0</span><span class="match-team right">S.Africa 🇿🇦</span></div>
+        <div class="match-line"><span class="match-team">🇰🇷 S.Korea</span><span class="match-score">2–1</span><span class="match-team right">Czechia 🇨🇿</span></div>
+        <div class="match-line"><span class="match-team">🇲🇽 Mexico</span><span class="match-score">1–1</span><span class="match-team right">Czechia 🇨🇿</span></div>
+        <div class="match-line"><span class="match-team">🇰🇷 S.Korea</span><span class="match-score">2–0</span><span class="match-team right">S.Africa 🇿🇦</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇲🇽 Mexico</td><td class="pts">7</td><td class="gd-pos">+4</td><td>6</td></tr>
+        <tr><td>🇰🇷 S.Korea</td><td class="pts">6</td><td class="gd-pos">+2</td><td>5</td></tr>
+        <tr class="best3rd"><td>🇨🇿 Czechia</td><td class="pts">4</td><td class="gd-zero">0</td><td>4</td></tr>
+        <tr><td>🇿🇦 S.Africa</td><td class="pts">0</td><td class="gd-neg">−6</td><td>0</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP B -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group B</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇨🇭 Switzerland</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇨🇦 Canada</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇧🇦 Bosnia</span><span class="badge badge-out">Out</span></div>
+      <div class="team-row"><span class="team-name">🇶🇦 Qatar</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇨🇦 Canada</span><span class="match-score">2–0</span><span class="match-team right">Bosnia 🇧🇦</span></div>
+        <div class="match-line"><span class="match-team">🇶🇦 Qatar</span><span class="match-score">0–2</span><span class="match-team right">Switzerland 🇨🇭</span></div>
+        <div class="match-line"><span class="match-team">🇨🇦 Canada</span><span class="match-score">1–0</span><span class="match-team right">Qatar 🇶🇦</span></div>
+        <div class="match-line"><span class="match-team">🇨🇭 Swiss</span><span class="match-score">2–1</span><span class="match-team right">Bosnia 🇧🇦</span></div>
+        <div class="match-line"><span class="match-team">🇨🇦 Canada</span><span class="match-score">1–1</span><span class="match-team right">Switzerland 🇨🇭</span></div>
+        <div class="match-line"><span class="match-team">🇧🇦 Bosnia</span><span class="match-score">3–0</span><span class="match-team right">Qatar 🇶🇦</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇨🇭 Switzerland</td><td class="pts">7</td><td class="gd-pos">+4</td><td>5</td></tr>
+        <tr><td>🇨🇦 Canada</td><td class="pts">7</td><td class="gd-pos">+3</td><td>4</td></tr>
+        <tr><td>🇧🇦 Bosnia</td><td class="pts">3</td><td class="gd-neg">−1</td><td>4</td></tr>
+        <tr><td>🇶🇦 Qatar</td><td class="pts">0</td><td class="gd-neg">−6</td><td>0</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP C -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group C</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇧🇷 Brazil</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇲🇦 Morocco</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</span><span class="badge badge-best3">Best 3rd</span></div>
+      <div class="team-row"><span class="team-name">🇭🇹 Haiti</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇧🇷 Brazil</span><span class="match-score">2–0</span><span class="match-team right">Morocco 🇲🇦</span></div>
+        <div class="match-line"><span class="match-team">🇭🇹 Haiti</span><span class="match-score">0–2</span><span class="match-team right">Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿</span></div>
+        <div class="match-line"><span class="match-team">🇧🇷 Brazil</span><span class="match-score">4–0</span><span class="match-team right">Haiti 🇭🇹</span></div>
+        <div class="match-line"><span class="match-team">🇲🇦 Morocco</span><span class="match-score">2–0</span><span class="match-team right">Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿</span></div>
+        <div class="match-line"><span class="match-team">🇧🇷 Brazil</span><span class="match-score">1–1</span><span class="match-team right">Scotland 🏴󠁧󠁢󠁳󠁣󠁴󠁿</span></div>
+        <div class="match-line"><span class="match-team">🇲🇦 Morocco</span><span class="match-score">3–1</span><span class="match-team right">Haiti 🇭🇹</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇧🇷 Brazil</td><td class="pts">7</td><td class="gd-pos">+6</td><td>7</td></tr>
+        <tr><td>🇲🇦 Morocco</td><td class="pts">6</td><td class="gd-pos">+3</td><td>5</td></tr>
+        <tr class="best3rd"><td>🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</td><td class="pts">4</td><td class="gd-neg">−1</td><td>3</td></tr>
+        <tr><td>🇭🇹 Haiti</td><td class="pts">0</td><td class="gd-neg">−8</td><td>1</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP D -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group D</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇺🇸 USA</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇹🇷 Türkiye</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇵🇾 Paraguay</span><span class="badge badge-best3">Best 3rd</span></div>
+      <div class="team-row"><span class="team-name">🇦🇺 Australia</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇺🇸 USA</span><span class="match-score">2–0</span><span class="match-team right">Australia 🇦🇺</span></div>
+        <div class="match-line"><span class="match-team">🇵🇾 Paraguay</span><span class="match-score">1–1</span><span class="match-team right">Türkiye 🇹🇷</span></div>
+        <div class="match-line"><span class="match-team">🇺🇸 USA</span><span class="match-score">1–1</span><span class="match-team right">Türkiye 🇹🇷</span></div>
+        <div class="match-line"><span class="match-team">🇵🇾 Paraguay</span><span class="match-score">2–0</span><span class="match-team right">Australia 🇦🇺</span></div>
+        <div class="match-line"><span class="match-team">🇺🇸 USA</span><span class="match-score">2–1</span><span class="match-team right">Paraguay 🇵🇾</span></div>
+        <div class="match-line"><span class="match-team">🇹🇷 Türkiye</span><span class="match-score">3–1</span><span class="match-team right">Australia 🇦🇺</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇺🇸 USA</td><td class="pts">7</td><td class="gd-pos">+3</td><td>5</td></tr>
+        <tr><td>🇹🇷 Türkiye</td><td class="pts">5</td><td class="gd-pos">+2</td><td>5</td></tr>
+        <tr class="best3rd"><td>🇵🇾 Paraguay</td><td class="pts">4</td><td class="gd-pos">+1</td><td>4</td></tr>
+        <tr><td>🇦🇺 Australia</td><td class="pts">0</td><td class="gd-neg">−6</td><td>1</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP E -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group E</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇩🇪 Germany</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇪🇨 Ecuador</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇨🇮 Ivory Coast</span><span class="badge badge-best3">Best 3rd</span></div>
+      <div class="team-row"><span class="team-name">🇨🇼 Curaçao</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇩🇪 Germany</span><span class="match-score">5–0</span><span class="match-team right">Curaçao 🇨🇼</span></div>
+        <div class="match-line"><span class="match-team">🇪🇨 Ecuador</span><span class="match-score">1–1</span><span class="match-team right">Ivory Coast 🇨🇮</span></div>
+        <div class="match-line"><span class="match-team">🇩🇪 Germany</span><span class="match-score">3–1</span><span class="match-team right">Ivory Coast 🇨🇮</span></div>
+        <div class="match-line"><span class="match-team">🇪🇨 Ecuador</span><span class="match-score">3–0</span><span class="match-team right">Curaçao 🇨🇼</span></div>
+        <div class="match-line"><span class="match-team">🇩🇪 Germany</span><span class="match-score">1–1</span><span class="match-team right">Ecuador 🇪🇨</span></div>
+        <div class="match-line"><span class="match-team">🇨🇮 Iv.Coast</span><span class="match-score">4–0</span><span class="match-team right">Curaçao 🇨🇼</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇩🇪 Germany</td><td class="pts">7</td><td class="gd-pos">+8</td><td>9</td></tr>
+        <tr><td>🇪🇨 Ecuador</td><td class="pts">5</td><td class="gd-pos">+3</td><td>5</td></tr>
+        <tr class="best3rd"><td>🇨🇮 Ivory Coast</td><td class="pts">4</td><td class="gd-pos">+1</td><td>6</td></tr>
+        <tr><td>🇨🇼 Curaçao</td><td class="pts">0</td><td class="gd-neg">−12</td><td>0</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP F -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group F</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇳🇱 Netherlands</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇯🇵 Japan</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇸🇪 Sweden</span><span class="badge badge-best3">Best 3rd</span></div>
+      <div class="team-row"><span class="team-name">🇹🇳 Tunisia</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇳🇱 Netherlands</span><span class="match-score">3–0</span><span class="match-team right">Tunisia 🇹🇳</span></div>
+        <div class="match-line"><span class="match-team">🇸🇪 Sweden</span><span class="match-score">1–1</span><span class="match-team right">Japan 🇯🇵</span></div>
+        <div class="match-line"><span class="match-team">🇳🇱 Netherlands</span><span class="match-score">2–1</span><span class="match-team right">Sweden 🇸🇪</span></div>
+        <div class="match-line"><span class="match-team">🇯🇵 Japan</span><span class="match-score">2–0</span><span class="match-team right">Tunisia 🇹🇳</span></div>
+        <div class="match-line"><span class="match-team">🇳🇱 Netherlands</span><span class="match-score">1–1</span><span class="match-team right">Japan 🇯🇵</span></div>
+        <div class="match-line"><span class="match-team">🇸🇪 Sweden</span><span class="match-score">2–0</span><span class="match-team right">Tunisia 🇹🇳</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇳🇱 Netherlands</td><td class="pts">7</td><td class="gd-pos">+4</td><td>6</td></tr>
+        <tr><td>🇯🇵 Japan</td><td class="pts">5</td><td class="gd-pos">+2</td><td>4</td></tr>
+        <tr class="best3rd"><td>🇸🇪 Sweden</td><td class="pts">4</td><td class="gd-pos">+1</td><td>4</td></tr>
+        <tr><td>🇹🇳 Tunisia</td><td class="pts">0</td><td class="gd-neg">−7</td><td>0</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP G -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group G</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇧🇪 Belgium</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇪🇬 Egypt</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇮🇷 Iran</span><span class="badge badge-out">Out</span></div>
+      <div class="team-row"><span class="team-name">🇳🇿 New Zealand</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇧🇪 Belgium</span><span class="match-score">2–0</span><span class="match-team right">Iran 🇮🇷</span></div>
+        <div class="match-line"><span class="match-team">🇪🇬 Egypt</span><span class="match-score">2–0</span><span class="match-team right">New Zealand 🇳🇿</span></div>
+        <div class="match-line"><span class="match-team">🇧🇪 Belgium</span><span class="match-score">1–0</span><span class="match-team right">Egypt 🇪🇬</span></div>
+        <div class="match-line"><span class="match-team">🇮🇷 Iran</span><span class="match-score">1–0</span><span class="match-team right">New Zealand 🇳🇿</span></div>
+        <div class="match-line"><span class="match-team">🇧🇪 Belgium</span><span class="match-score">2–1</span><span class="match-team right">New Zealand 🇳🇿</span></div>
+        <div class="match-line"><span class="match-team">🇪🇬 Egypt</span><span class="match-score">3–1</span><span class="match-team right">Iran 🇮🇷</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇧🇪 Belgium</td><td class="pts">9</td><td class="gd-pos">+4</td><td>5</td></tr>
+        <tr><td>🇪🇬 Egypt</td><td class="pts">6</td><td class="gd-pos">+3</td><td>5</td></tr>
+        <tr><td>🇮🇷 Iran</td><td class="pts">3</td><td class="gd-neg">−3</td><td>2</td></tr>
+        <tr><td>🇳🇿 New Zealand</td><td class="pts">0</td><td class="gd-neg">−4</td><td>1</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP H -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group H</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇪🇸 Spain</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇺🇾 Uruguay</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇸🇦 Saudi Arabia</span><span class="badge badge-out">Out</span></div>
+      <div class="team-row"><span class="team-name">🇨🇻 Cape Verde</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇪🇸 Spain</span><span class="match-score">3–0</span><span class="match-team right">Cape Verde 🇨🇻</span></div>
+        <div class="match-line"><span class="match-team">🇸🇦 S.Arabia</span><span class="match-score">0–2</span><span class="match-team right">Uruguay 🇺🇾</span></div>
+        <div class="match-line"><span class="match-team">🇪🇸 Spain</span><span class="match-score">2–0</span><span class="match-team right">Saudi Arabia 🇸🇦</span></div>
+        <div class="match-line"><span class="match-team">🇺🇾 Uruguay</span><span class="match-score">2–1</span><span class="match-team right">Cape Verde 🇨🇻</span></div>
+        <div class="match-line"><span class="match-team">🇪🇸 Spain</span><span class="match-score">2–1</span><span class="match-team right">Uruguay 🇺🇾</span></div>
+        <div class="match-line"><span class="match-team">🇨🇻 C.Verde</span><span class="match-score">1–2</span><span class="match-team right">Saudi Arabia 🇸🇦</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇪🇸 Spain</td><td class="pts">9</td><td class="gd-pos">+6</td><td>7</td></tr>
+        <tr><td>🇺🇾 Uruguay</td><td class="pts">6</td><td class="gd-pos">+2</td><td>5</td></tr>
+        <tr><td>🇸🇦 S.Arabia</td><td class="pts">3</td><td class="gd-neg">−2</td><td>2</td></tr>
+        <tr><td>🇨🇻 C.Verde</td><td class="pts">0</td><td class="gd-neg">−6</td><td>2</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP I -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group I</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇫🇷 France</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇳🇴 Norway</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇸🇳 Senegal</span><span class="badge badge-out">Out</span></div>
+      <div class="team-row"><span class="team-name">🇮🇶 Iraq</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇫🇷 France</span><span class="match-score">3–0</span><span class="match-team right">Iraq 🇮🇶</span></div>
+        <div class="match-line"><span class="match-team">🇳🇴 Norway</span><span class="match-score">2–1</span><span class="match-team right">Senegal 🇸🇳</span></div>
+        <div class="match-line"><span class="match-team">🇫🇷 France</span><span class="match-score">2–0</span><span class="match-team right">Senegal 🇸🇳</span></div>
+        <div class="match-line"><span class="match-team">🇳🇴 Norway</span><span class="match-score">4–0</span><span class="match-team right">Iraq 🇮🇶</span></div>
+        <div class="match-line"><span class="match-team">🇫🇷 France</span><span class="match-score">2–1</span><span class="match-team right">Norway 🇳🇴</span></div>
+        <div class="match-line"><span class="match-team">🇸🇳 Senegal</span><span class="match-score">2–0</span><span class="match-team right">Iraq 🇮🇶</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇫🇷 France</td><td class="pts">9</td><td class="gd-pos">+6</td><td>7</td></tr>
+        <tr><td>🇳🇴 Norway</td><td class="pts">6</td><td class="gd-pos">+3</td><td>7</td></tr>
+        <tr><td>🇸🇳 Senegal</td><td class="pts">3</td><td class="gd-neg">−1</td><td>3</td></tr>
+        <tr><td>🇮🇶 Iraq</td><td class="pts">0</td><td class="gd-neg">−8</td><td>0</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP J -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group J</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇦🇷 Argentina</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇦🇹 Austria</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇩🇿 Algeria</span><span class="badge badge-best3">Best 3rd</span></div>
+      <div class="team-row"><span class="team-name">🇯🇴 Jordan</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇦🇷 Argentina</span><span class="match-score">3–0</span><span class="match-team right">Jordan 🇯🇴</span></div>
+        <div class="match-line"><span class="match-team">🇩🇿 Algeria</span><span class="match-score">0–1</span><span class="match-team right">Austria 🇦🇹</span></div>
+        <div class="match-line"><span class="match-team">🇦🇷 Argentina</span><span class="match-score">2–1</span><span class="match-team right">Austria 🇦🇹</span></div>
+        <div class="match-line"><span class="match-team">🇩🇿 Algeria</span><span class="match-score">2–0</span><span class="match-team right">Jordan 🇯🇴</span></div>
+        <div class="match-line"><span class="match-team">🇦🇷 Argentina</span><span class="match-score">1–1</span><span class="match-team right">Algeria 🇩🇿</span></div>
+        <div class="match-line"><span class="match-team">🇯🇴 Jordan</span><span class="match-score">1–2</span><span class="match-team right">Austria 🇦🇹</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇦🇷 Argentina</td><td class="pts">7</td><td class="gd-pos">+4</td><td>6</td></tr>
+        <tr><td>🇦🇹 Austria</td><td class="pts">6</td><td class="gd-pos">+1</td><td>4</td></tr>
+        <tr class="best3rd"><td>🇩🇿 Algeria</td><td class="pts">4</td><td class="gd-pos">+1</td><td>3</td></tr>
+        <tr><td>🇯🇴 Jordan</td><td class="pts">0</td><td class="gd-neg">−6</td><td>1</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP K -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group K</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🇵🇹 Portugal</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇨🇴 Colombia</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇨🇩 DR Congo</span><span class="badge badge-out">Out</span></div>
+      <div class="team-row"><span class="team-name">🇺🇿 Uzbekistan</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🇵🇹 Portugal</span><span class="match-score">2–0</span><span class="match-team right">Uzbekistan 🇺🇿</span></div>
+        <div class="match-line"><span class="match-team">🇨🇴 Colombia</span><span class="match-score">1–0</span><span class="match-team right">DR Congo 🇨🇩</span></div>
+        <div class="match-line"><span class="match-team">🇵🇹 Portugal</span><span class="match-score">2–1</span><span class="match-team right">Colombia 🇨🇴</span></div>
+        <div class="match-line"><span class="match-team">🇨🇩 DR Congo</span><span class="match-score">2–1</span><span class="match-team right">Uzbekistan 🇺🇿</span></div>
+        <div class="match-line"><span class="match-team">🇵🇹 Portugal</span><span class="match-score">1–0</span><span class="match-team right">DR Congo 🇨🇩</span></div>
+        <div class="match-line"><span class="match-team">🇨🇴 Colombia</span><span class="match-score">3–0</span><span class="match-team right">Uzbekistan 🇺🇿</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🇵🇹 Portugal</td><td class="pts">9</td><td class="gd-pos">+4</td><td>5</td></tr>
+        <tr><td>🇨🇴 Colombia</td><td class="pts">6</td><td class="gd-pos">+2</td><td>4</td></tr>
+        <tr><td>🇨🇩 DR Congo</td><td class="pts">3</td><td class="gd-neg">−1</td><td>2</td></tr>
+        <tr><td>🇺🇿 Uzbekistan</td><td class="pts">0</td><td class="gd-neg">−5</td><td>1</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- GROUP L -->
+  <div class="group-card">
+    <div class="group-header"><span class="group-letter">Group L</span></div>
+    <div class="group-body">
+      <div class="team-row"><span class="team-name">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇭🇷 Croatia</span><span class="badge badge-advance">Advances</span></div>
+      <div class="team-row"><span class="team-name">🇬🇭 Ghana</span><span class="badge badge-best3">Best 3rd</span></div>
+      <div class="team-row"><span class="team-name">🇵🇦 Panama</span><span class="badge badge-out">Out</span></div>
+      <div class="group-matches">
+        <div class="group-matches-title">Match Results</div>
+        <div class="match-line"><span class="match-team">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="match-score">2–0</span><span class="match-team right">Panama 🇵🇦</span></div>
+        <div class="match-line"><span class="match-team">🇭🇷 Croatia</span><span class="match-score">2–1</span><span class="match-team right">Ghana 🇬🇭</span></div>
+        <div class="match-line"><span class="match-team">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="match-score">2–1</span><span class="match-team right">Croatia 🇭🇷</span></div>
+        <div class="match-line"><span class="match-team">🇬🇭 Ghana</span><span class="match-score">2–0</span><span class="match-team right">Panama 🇵🇦</span></div>
+        <div class="match-line"><span class="match-team">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="match-score">1–1</span><span class="match-team right">Ghana 🇬🇭</span></div>
+        <div class="match-line"><span class="match-team">🇭🇷 Croatia</span><span class="match-score">3–0</span><span class="match-team right">Panama 🇵🇦</span></div>
+      </div>
+      <table class="standings">
+        <tr><th>Team</th><th>Pts</th><th>GD</th><th>GF</th></tr>
+        <tr><td>🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</td><td class="pts">7</td><td class="gd-pos">+4</td><td>5</td></tr>
+        <tr><td>🇭🇷 Croatia</td><td class="pts">6</td><td class="gd-pos">+3</td><td>6</td></tr>
+        <tr class="best3rd"><td>🇬🇭 Ghana</td><td class="pts">4</td><td class="gd-zero">0</td><td>4</td></tr>
+        <tr><td>🇵🇦 Panama</td><td class="pts">0</td><td class="gd-neg">−7</td><td>0</td></tr>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /groups-grid -->
+
+<div class="best3-note">
+  <strong>8 Best Third-Placed Teams Advancing:</strong>
+  🇵🇾 Paraguay (D · 4pts +1) &nbsp;·&nbsp;
+  🇨🇮 Ivory Coast (E · 4pts +1) &nbsp;·&nbsp;
+  🇸🇪 Sweden (F · 4pts +1) &nbsp;·&nbsp;
+  🇩🇿 Algeria (J · 4pts +1) &nbsp;·&nbsp;
+  🇨🇿 Czechia (A · 4pts 0) &nbsp;·&nbsp;
+  🇬🇭 Ghana (L · 4pts 0) &nbsp;·&nbsp;
+  🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland (C · 4pts −1) &nbsp;·&nbsp;
+  🇧🇦 Bosnia (B · 3pts −1)
+</div>
+
+<!-- ══════════════════════════════════════════ ROUND OF 32 ══════════════════════════════════════════ -->
+<div class="section-title">Round of 32</div>
+
+<div class="r32-grid">
+
+  <div class="r32-card">
+    <div class="r32-num">Match 1 · Spain's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇪🇸 Spain</span><span class="r32-score">4–0</span><span class="r32-team">🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland</span></div>
+    <div class="r32-note">La Roja in full flow. Scotland had no answer for Pedri and Yamal's creativity.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 2 · Spain's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇺🇾 Uruguay</span><span class="r32-score">2–1</span><span class="r32-team">🇯🇵 Japan</span></div>
+    <div class="r32-note">Uruguay's physical approach disrupted Japan's slick passing; Núñez decisive header.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 3 · Spain's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇳🇱 Netherlands</span><span class="r32-score">3–1</span><span class="r32-team">🇪🇨 Ecuador</span></div>
+    <div class="r32-note">Van Dijk commanded the backline; Gakpo and Depay overwhelmed Ecuador in the second half.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 4 · Spain's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇹🇷 Türkiye</span><span class="r32-score">2–1</span><span class="r32-team">🇪🇬 Egypt</span></div>
+    <div class="r32-note">Calhanoglu's free-kick sealed it; Salah's goal was not enough on a difficult night for Egypt.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 5 · Brazil's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇧🇷 Brazil</span><span class="r32-score">3–0</span><span class="r32-team">🇸🇪 Sweden</span></div>
+    <div class="r32-note">Vinicius Jr ran riot on the left flank; Raphinha added two. Sweden had no pace to cope.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 6 · Brazil's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇺🇸 USA</span><span class="r32-score">2–1</span><span class="r32-team">🇲🇦 Morocco</span></div>
+    <div class="r32-note">Home crowd electric at MetLife; Pulisic's late winner sent the hosts through on a wave of emotion.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 7 · Brazil's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇩🇪 Germany</span><span class="r32-score">4–1</span><span class="r32-team">🇧🇦 Bosnia</span></div>
+    <div class="r32-note">Wirtz and Musiala were irresistible in tandem; Bosnia's defensive structure collapsed after 30 minutes.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 8 · Brazil's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇧🇪 Belgium</span><span class="r32-score">2–0</span><span class="r32-team">🇨🇿 Czechia</span></div>
+    <div class="r32-note">De Bruyne pulled the strings masterfully; Doku's dribbling tore through Czechia's right side.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 9 · France's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇫🇷 France</span><span class="r32-score">4–0</span><span class="r32-team">🇬🇭 Ghana</span></div>
+    <div class="r32-note">Mbappé opened with a brace inside 30 minutes; Dembélé added a sumptuous third. Clinical.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 10 · France's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇲🇽 Mexico</span><span class="r32-score">2–1</span><span class="r32-team">🇩🇿 Algeria</span></div>
+    <div class="r32-note">Lozano's double gave the host nation a crucial win; the Aztec Stadium atmosphere was deafening.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 11 · France's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇵🇹 Portugal</span><span class="r32-score">2–0</span><span class="r32-team">🇦🇹 Austria</span></div>
+    <div class="r32-note">Bruno Fernandes controlled the game; Ronaldo's late tap-in brought the crowd to its feet.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 12 · France's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇳🇴 Norway</span><span class="r32-score">2–1</span><span class="r32-team">🇨🇮 Ivory Coast</span></div>
+    <div class="r32-note">Haaland's predatory instinct proved the difference; Ivory Coast made it nervy but Norway held firm.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 13 · England's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</span><span class="r32-score">2–1</span><span class="r32-team">🇨🇴 Colombia</span></div>
+    <div class="r32-note">Kane's header from a corner opened the scoring; Colombia equalised before Saka sealed it.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 14 · England's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇨🇭 Switzerland</span><span class="r32-score">2–1</span><span class="r32-team">🇰🇷 South Korea</span></div>
+    <div class="r32-note">Shaqiri's experience proved vital; South Korea dominated possession but Swiss efficiency told.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 15 · England's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇦🇷 Argentina</span><span class="r32-score">3–0</span><span class="r32-team">🇨🇦 Canada</span></div>
+    <div class="r32-note">Messi's two assists dismantled Canadian hopes; the hosts were outclassed by the defending champions.</div>
+  </div>
+
+  <div class="r32-card">
+    <div class="r32-num">Match 16 · England's Path</div>
+    <div class="r32-match-row"><span class="r32-team winner">🇭🇷 Croatia</span><span class="r32-score">2–1</span><span class="r32-team">🇵🇾 Paraguay</span></div>
+    <div class="r32-note">AET <span class="extra-badge">AET</span> — Modrić's genius in extra time won it; Croatia's veteran experience proved decisive over a spirited Paraguay.</div>
+  </div>
+
+</div><!-- /r32-grid -->
+
+<!-- ══════════════════════════════════════════ ROUND OF 16 ══════════════════════════════════════════ -->
+<div class="section-title">Round of 16</div>
+<div class="matches-grid">
+
+  <div class="match-card winner-left">
+    <div class="match-num">R16 · Match 1</div>
+    <div class="teams">
+      <div class="team-a">🇪🇸 Spain</div>
+      <div class="score-box">2–0</div>
+      <div class="team-b">🇺🇾 Uruguay</div>
+    </div>
+    <div class="reasoning">Spain's suffocating press was too much for Uruguay's midfield, who couldn't build play from deep. Yamal — recovering from his hamstring scare — was electric in only 70 minutes, and Pedri's range of passing unlocked Uruguay's compact shape twice in the second half.</div>
+  </div>
+
+  <div class="match-card winner-left">
+    <div class="match-num">R16 · Match 2</div>
+    <div class="teams">
+      <div class="team-a">🇳🇱 Netherlands</div>
+      <div class="score-box">2–1 <span style="font-size:0.7rem">AET</span></div>
+      <div class="team-b">🇹🇷 Türkiye</div>
+    </div>
+    <div class="reasoning">Turkey's energy and Calhanoglu's creativity pushed the Dutch to the limit in one of the tournament's most absorbing matches. Van Dijk's header from a corner in the 106th minute proved the difference, sending the Oranje through in a game that could have gone either way at 1–1 after 90.</div>
+  </div>
+
+  <div class="match-card winner-left">
+    <div class="match-num">R16 · Match 3</div>
+    <div class="teams">
+      <div class="team-a">🇧🇷 Brazil</div>
+      <div class="score-box">2–1</div>
+      <div class="team-b">🇺🇸 USA</div>
+    </div>
+    <div class="reasoning">The home crowd couldn't save the United States from a Vinicius Jr masterclass; his solo goal in the 72nd minute silenced AT&T Stadium and knocked out the hosts on one of the tournament's most emotionally charged evenings. Brazil's individual quality proved decisive as Ancelotti's tactical discipline kept the Americans to long-range efforts.</div>
+  </div>
+
+  <div class="match-card winner-left">
+    <div class="match-num">R16 · Match 4</div>
+    <div class="teams">
+      <div class="team-a">🇩🇪 Germany</div>
+      <div class="score-box">2–0</div>
+      <div class="team-b">🇧🇪 Belgium</div>
+    </div>
+    <div class="reasoning">A heavyweight European clash, but Musiala and Wirtz proved a more dangerous tandem than De Bruyne — 33 years old and showing fatigue across a long season. Germany's high press disrupted Belgium's build-up play, and two Havertz goals of the highest quality ended De Bruyne's World Cup journey in the last 16.</div>
+  </div>
+
+  <div class="match-card winner-left">
+    <div class="match-num">R16 · Match 5</div>
+    <div class="teams">
+      <div class="team-a">🇫🇷 France</div>
+      <div class="score-box">3–0</div>
+      <div class="team-b">🇲🇽 Mexico</div>
+    </div>
+    <div class="reasoning">France were ruthless against Mexico, ending the second host nation's tournament run. Mbappé's pace destroyed the Mexican backline repeatedly — his two goals were world-class — and Dembélé added a third as Deschamps' men served notice of their intentions as genuine title contenders. Mexico gave everything but were outclassed in every department.</div>
+  </div>
+
+  <div class="match-card winner-left">
+    <div class="match-num">R16 · Match 6</div>
+    <div class="teams">
+      <div class="team-a">🇵🇹 Portugal</div>
+      <div class="score-box">2–1</div>
+      <div class="team-b">🇳🇴 Norway</div>
+    </div>
+    <div class="reasoning">Haaland gave Norway an electric start with a brilliant header, but Ronaldo's leadership proved decisive in his sixth World Cup. Bruno Fernandes' 68th-minute winner was a moment of pure quality — a first-time finish after a sweeping move — and Portugal's experience managed the final 22 minutes despite Norwegian pressure.</div>
+  </div>
+
+  <div class="match-card winner-left">
+    <div class="match-num">R16 · Match 7</div>
+    <div class="teams">
+      <div class="team-a">🏴󠁧󠁢󠁥󠁮󠁧󠁿 England</div>
+      <div class="score-box">2–1 <span style="font-size:0.7rem">AET</span></div>
+      <div class="team-b">🇨🇭 Switzerland</div>
+    </div>
+    <div class="reasoning">England were taken to extra time by a dogged Switzerland side who matched them for 90 minutes in a tense, tactical battle. Kane's cool penalty in the 104th minute proved the decisive moment, and England's squad depth — with fresh legs from the bench — wore down the Swiss in the final exchanges to set up a blockbuster quarterfinal.</div>
+  </div>
+
+  <div class="match-card winner-left">
+    <div class="match-num">R16 · Match 8</div>
+    <div class="teams">
+      <div class="team-a">🇦🇷 Argentina</div>
+      <div class="score-box">2–0</div>
+      <div class="team-b">🇭🇷 Croatia</div>
+    </div>
+    <div class="reasoning">This was meant to be a repeat of their 2022 semifinal classic, but an aging Croatia could not produce another magic act against a reinvigorated Argentina. Messi was the architect — two assists, a masterclass in positioning — and Mac Allister's brace put the match to bed before the hour mark, sending the defending champions into the last eight.</div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════ QUARTERFINALS ══════════════════════════════════════════ -->
+<div class="section-title">Quarterfinals</div>
+
+<div class="big-match-card">
+  <div class="match-header"><span>Quarterfinal 1</span><span>🏟️ SoFi Stadium, Los Angeles</span></div>
+  <div class="teams">
+    <div class="team winner">🇪🇸 SPAIN</div>
+    <div class="vs-score">2–1</div>
+    <div class="team right">NETHERLANDS 🇳🇱</div>
+  </div>
+  <div class="reasoning-block">
+    Spain and the Netherlands produced the tournament's finest tactical contest of the knockout rounds. The Dutch tried to press high and match Spain's technical quality but Rodri — imperious at the base of midfield — absorbed every wave of pressure and distributed with surgical precision. Gavi opened the scoring with a flowing team move involving seven players and three one-touch passes, a moment of football that drew audible gasps in Los Angeles. Memphis Depay levelled brilliantly just after the hour, threatening an upset, but Lamine Yamal — now fully fit — left Dumfries in knots with a slaloming run before drilling the winner into the bottom corner with 15 minutes remaining. Spain advance to the last four as the tournament's most convincing team.
+  </div>
+</div>
+
+<div class="big-match-card">
+  <div class="match-header"><span>Quarterfinal 2</span><span>🏟️ AT&amp;T Stadium, Dallas</span></div>
+  <div class="teams">
+    <div class="team winner">🇧🇷 BRAZIL</div>
+    <div class="vs-score">2–1 <span style="font-size:1rem">AET</span></div>
+    <div class="team right">GERMANY 🇩🇪</div>
+  </div>
+  <div class="reasoning-block">
+    A World Cup heavyweight clash that lived up to every expectation. Germany's Musiala and Wirtz were brilliant in the first half, and Havertz's clinical finish in the 38th minute gave Die Mannschaft a deserved lead. Raphinha's response levelled matters before the break in a goal of breathtaking quality — a chest, turn and volley from 20 yards. Extra time was end-to-end and often chaotic, but Vinicius Jr produced the defining moment of his tournament in the 107th minute, receiving Neymar's clever through ball (the returning Brazilian starting from the bench) and finishing with icy composure. Brazil's emotional release said everything about the weight they were carrying after their injury-hit buildup.
+  </div>
+</div>
+
+<div class="big-match-card">
+  <div class="match-header"><span>Quarterfinal 3</span><span>🏟️ Levi's Stadium, San Francisco</span></div>
+  <div class="teams">
+    <div class="team winner">🇫🇷 FRANCE</div>
+    <div class="vs-score">2–1</div>
+    <div class="team right">PORTUGAL 🇵🇹</div>
+  </div>
+  <div class="reasoning-block">
+    One of the most anticipated matchups in modern international football — Mbappé versus Ronaldo — and the younger generation prevailed. Ronaldo's finish in the 22nd minute gave Portugal and their 41-year-old captain the dream start, silencing doubters across the world. But France's collective quality overwhelmed an individual-dependent Portugal. Dembélé's equaliser was a statement of intent, and Mbappé's winner — a sumptuous curling effort into the top corner that Diogo Costa had no chance with — ended Portugal's run and Ronaldo's World Cup story on an achingly dramatic note. One last World Cup appearance; one last valiant effort. It was enough to win admiration, but not the trophy.
+  </div>
+</div>
+
+<div class="big-match-card">
+  <div class="match-header"><span>Quarterfinal 4</span><span>🏟️ MetLife Stadium, New Jersey</span></div>
+  <div class="teams">
+    <div class="team winner">🏴󠁧󠁢󠁥󠁮󠁧󠁿 ENGLAND</div>
+    <div class="vs-score">2–1 <span style="font-size:1rem">AET</span></div>
+    <div class="team right">ARGENTINA 🇦🇷</div>
+  </div>
+  <div class="reasoning-block">
+    Sixty years of hurt, one defining night. Messi's majestic free-kick in the 55th minute had Argentina on course for the semi-finals and looked to be writing the perfect script for the greatest player of all time. England's response was the story of Tuchel's tournament — resilient, organised, collectively brilliant. Mainoo's precise finish levelled in the 78th minute, and the MetLife crowd was an arena of pure tension for extra time. Kane's penalty — converted with nerve of steel after Messi's late foul on Saka — put England ahead in the 108th minute and Argentina could not find a response. Messi's World Cup is over. England, finally, are in a World Cup semi-final. Scenes that have never been seen.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ SEMIFINALS ══════════════════════════════════════════ -->
+<div class="section-title">Semifinals</div>
+<div class="sf-grid">
+
+  <div class="big-match-card">
+    <div class="match-header"><span>Semi-Final 1</span><span>🏟️ Rose Bowl, Los Angeles — July 14</span></div>
+    <div class="teams">
+      <div class="team winner">🇪🇸 SPAIN</div>
+      <div class="vs-score">2–0</div>
+      <div class="team right">BRAZIL 🇧🇷</div>
+    </div>
+    <div class="reasoning-block">
+      Spain's tactical masterclass against Brazil was as complete a semifinal performance as the tournament has seen. Ancelotti's Brazil looked to exploit Spain's flanks through Vinicius Jr and Raphinha, but Cucurella and the outstanding Dani Carvajal-replacement — full-back Grimaldo — restricted both to peripheral roles throughout. Spain's midfield ticked with the precision of a Swiss watch: Rodri screened the defence, Pedri linked play with flicks and dribbles that bewildered Brazil's pressing, and Gavi found space in pockets that seemed not to exist. A Fabián Ruiz long-range drive opened the scoring after 41 minutes, and a Lamine Yamal close-range finish 15 minutes from time sealed a victory that felt inevitable. Spain are going to the World Cup Final. Their best player hasn't turned 19 yet.
+    </div>
+  </div>
+
+  <div class="big-match-card">
+    <div class="match-header"><span>Semi-Final 2</span><span>🏟️ AT&amp;T Stadium, Dallas — July 15</span></div>
+    <div class="teams">
+      <div class="team winner">🇫🇷 FRANCE</div>
+      <div class="vs-score">2–1 <span style="font-size:1rem">AET</span></div>
+      <div class="team right">ENGLAND 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+    </div>
+    <div class="reasoning-block">
+      English heartbreak, French destiny. England were magnificent for long periods of this brutal semifinal — Tuchel's team pressing France higher than any side had dared in the tournament, and Kane's first-half goal justifiably giving them the lead at the break. France's response was the work of champions. Saliba and Upamecano tightened their defensive grip, Dembélé began finding pockets of space, and Mbappé — who had been relatively quiet — suddenly exploded into life with a levelling strike of ferocious pace and placement in the 73rd minute. England pushed desperately for a winner but could not find it, and in the fifth minute of extra time Olise delivered the decisive blow: a precise, measured finish after cutting in from the left. France are in the final. England's hopes of ending their 60-year wait for a major tournament will have to wait once more.
+    </div>
+  </div>
+
+</div>
+
+<!-- ══════════════════════════════════════════ THIRD PLACE ══════════════════════════════════════════ -->
+<div class="section-title">Third Place Play-off</div>
+<div class="third-card">
+  <div class="match-header" style="display:flex;justify-content:space-between;font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px;">
+    <span>3rd Place Play-off</span><span>🏟️ Levi's Stadium, San Francisco — July 18</span>
+  </div>
+  <div class="teams" style="display:grid;grid-template-columns:1fr auto 1fr;gap:20px;align-items:center;">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--gold);">🇧🇷 BRAZIL</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:2.8rem;color:var(--gold);letter-spacing:4px;">2–1</div>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;text-align:right;">ENGLAND 🏴󠁧󠁢󠁥󠁮󠁧󠁿</div>
+  </div>
+  <div style="font-size:0.88rem;color:var(--muted);font-style:italic;margin-top:16px;line-height:1.6;">
+    An entertaining consolation match with genuine pride at stake. Neymar, starting for the first time in the tournament after his calf injury, bowed out with a customary free-kick goal and an assist, giving Brazil the win they needed to salvage bronze from what had been a disrupted campaign. England, exhausted after their semifinal heartbreak, showed plenty of character but ran out of creativity in the final third. Kane scored his sixth goal of the tournament, but Brazil's class proved decisive.
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ FINAL ══════════════════════════════════════════ -->
+<div class="section-title">The Final</div>
+<div class="final-section">
+  <div class="final-label">FIFA World Cup 2026 Final</div>
+  <div class="final-stadium">🏟️ MetLife Stadium, East Rutherford, New Jersey &nbsp;·&nbsp; July 19, 2026</div>
+  <div class="final-teams">
+    <div class="final-team-name winner">🇪🇸 SPAIN</div>
+    <div class="final-vs-score">2–1</div>
+    <div class="final-team-name right">FRANCE 🇫🇷</div>
+  </div>
+  <div class="final-reasoning">
+    <p>
+      The World Cup Final that football had been building toward since the draw was made: <em>Spain</em>, the reigning European champions with the most technically gifted squad in a generation, versus <em>France</em>, the tournament's most dangerous attack built around the incomparable Kylian Mbappé. For 35 minutes, France were the better team — their relentless pressing pinned Spain back and Mbappé's movement created space that Spain had not conceded in five previous knockout matches. When he converted a clinical finish on 37 minutes, a third World Cup for France appeared to be unfolding.
+    </p><br>
+    <p>
+      But Spain's response was everything that makes them special. <em>Pedri</em> — the tournament's best player from wire to wire — picked up the ball 40 yards from goal on the stroke of half-time and threaded an impossible pass through France's defensive structure. <em>Lamine Yamal</em>, still 18 years old and playing in his first-ever senior World Cup, took one touch and rifled a 25-yard thunderbolt into the top corner. MetLife Stadium shook. At half-time, Spain had turned the game on its head without ceding any of their technical identity.
+    </p><br>
+    <p>
+      The second half was chess played at full speed. Deschamps shifted to a deeper block, trying to absorb Spain's possession and hit on the counter. It almost worked — Mbappé found space twice in the 60s but Cubarsí, outstanding all tournament, read both situations with veteran composure despite being just 20 years old. The decisive moment came in the 73rd minute: a sweeping Spain move ended with <em>Gavi</em> stabbing the ball home from six yards after Saliba failed to clear cleanly. France pushed desperately — Olise came on and threatened — but Unai Simón's assured handling in goal and Spain's defensive organisation held firm. When the final whistle blew, De la Fuente's Spain had become world champions — the fourth time in their history, and arguably the most deserved of all.
+    </p>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════ AWARDS ══════════════════════════════════════════ -->
+<div class="section-title">Tournament Awards</div>
+<div class="awards-grid">
+
+  <div class="award-card">
+    <div class="award-icon">🥇</div>
+    <div class="award-title">Golden Boot</div>
+    <div class="award-player">Kylian Mbappé</div>
+    <div class="award-team">🇫🇷 France</div>
+    <div class="award-note">8 goals across 7 matches — including braces against Ghana, Mexico, the semifinal against England, and the Final opener. His pace and finishing defined France's tournament run and made him the competition's most feared striker despite ending on the losing side.</div>
+  </div>
+
+  <div class="award-card">
+    <div class="award-icon">🏆</div>
+    <div class="award-title">Golden Ball</div>
+    <div class="award-player">Pedri</div>
+    <div class="award-team">🇪🇸 Spain</div>
+    <div class="award-note">The tournament's controlling intelligence. Pedri averaged 97 passes per game at 93% accuracy, created 12 key chances, and his equaliser assist in the Final will be replayed for decades. At 23, he is already one of the greatest midfielders in World Cup history. The embodiment of La Roja's title win.</div>
+  </div>
+
+  <div class="award-card">
+    <div class="award-icon">🧤</div>
+    <div class="award-title">Golden Glove</div>
+    <div class="award-player">Mike Maignan</div>
+    <div class="award-team">🇫🇷 France</div>
+    <div class="award-note">Exceptional throughout France's run to the Final. His reflex saves against Portugal in the quarterfinal — two in the final ten minutes — were the difference between a semifinal place and elimination. Commanded his area with authority and registered three clean sheets. Deserving recognition for a brilliant personal tournament.</div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>Prediction generated by Claude (claude.ai/code) · Based on research from 10+ international sources</strong></p>
+  <p style="margin-top:6px;">Sources: FIFA.com · ESPN · CBS Sports · Al Jazeera · BBC Sport · RotoWire · Covers.com · beIN Sports · sport-express.ru · championat.com · football-ranking.com · Oddschecker</p>
+  <p style="margin-top:10px;font-size:0.75rem;opacity:0.6;">For entertainment purposes only. All predictions are analytical estimates based on current form, squad depth, and historical data as of June 2026.</p>
+</footer>
+
+</div><!-- /container -->
+</body>
+</html>
