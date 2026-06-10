@@ -318,7 +318,7 @@ async function startUser(){
     const r=await fetch('/api/users',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})});
     const u=await r.json();
     if(u.error){toast(u.error,true);return;}
-    loginUser(u.id,u.name);
+    loginUser(u.id,u.name,u.writeToken);
     const rr=await fetch(`/api/users/${u.id}`);
     const ud=await rr.json();
     loadData(ud);
@@ -327,14 +327,21 @@ async function startUser(){
   }catch(e){toast('Сервер недоступен',true);}
 }
 async function openUser(id,name){
-  loginUser(id,name);
-  const r=await fetch(`/api/users/${id}`);
-  const u=await r.json();
-  loadData(u);
-  showView('predict');
+  // POST first to obtain the write token for this user
+  try{
+    const lr=await fetch('/api/users',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name})});
+    const lu=await lr.json();
+    if(lu.error){toast(lu.error,true);return;}
+    loginUser(lu.id,lu.name,lu.writeToken);
+    const r=await fetch(`/api/users/${lu.id}`);
+    const u=await r.json();
+    loadData(u);
+    showView('predict');
+  }catch(e){toast('Сервер недоступен',true);}
 }
-function loginUser(id,name){
-  curUser={id,name};
+function loginUser(id,name,token){
+  curUser={id,name,token:token||''};
+  if(token)localStorage.setItem('wc26u',JSON.stringify({id,name,token}));
   document.getElementById('nav-u').style.display='flex';
   document.getElementById('nav-un').textContent=name;
   document.getElementById('pu').textContent=name;
@@ -342,15 +349,20 @@ function loginUser(id,name){
 }
 function logoutPrompt(){
   if(!confirm(`Выйти из "${curUser.name}"?`))return;
-  curUser=null; bState={}; resetAll();
+  curUser=null; bState={}; resetAll(); localStorage.removeItem('wc26u');
   document.getElementById('nav-u').style.display='none';
   document.getElementById('nav-pred').style.display='none';
   showView('home'); renderAll();
 }
 async function deleteUser(id,name){
-  if(!confirm(`Удалить "${name}"?`))return;
-  await fetch(`/api/users/${id}`,{method:'DELETE'});
-  toast(`Удалено: ${name}`); loadUList();
+  if(!curUser||curUser.id!==id){toast('Можно удалить только свой аккаунт',true);return;}
+  if(!confirm(`Удалить свой аккаунт "${name}"? Прогноз будет потерян навсегда.`))return;
+  await fetch(`/api/users/${id}`,{method:'DELETE',headers:{'X-Write-Token':curUser.token}});
+  curUser=null; localStorage.removeItem('wc26u');
+  bState={}; resetAll();
+  document.getElementById('nav-u').style.display='none';
+  document.getElementById('nav-pred').style.display='none';
+  toast(`Аккаунт удалён`); loadUList(); showView('home');
 }
 async function loadUList(){
   try{
@@ -368,8 +380,8 @@ async function loadUList(){
         </div>
         <div class="pbar"><div class="pfill" style="width:${pct}%"></div></div>
         <div class="ubtns">
-          <button class="btn-g" style="flex:1" onclick="openUser('${u.id}','${esc(u.name)}')">✏️ Открыть</button>
-          <button class="btn-d" onclick="deleteUser('${u.id}','${esc(u.name)}')">✕</button>
+          <button class="btn-g" style="flex:1" onclick="openUser('${esc(u.id)}','${esc(u.name)}')">✏️ Открыть</button>
+          ${curUser&&curUser.id===u.id?`<button class="btn-d" onclick="deleteUser('${esc(u.id)}','${esc(u.name)}')">✕</button>`:''}
         </div>
       </div>`;
     }).join('')+'</div>';
@@ -730,7 +742,7 @@ async function saveAll(){
     for(const[k,v]of Object.entries(ms))groups[g][k]=v;
   }
   try{
-    await fetch(`/api/users/${curUser.id}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({bracket,groups})});
+    await fetch(`/api/users/${curUser.id}`,{method:'PUT',headers:{'Content-Type':'application/json','X-Write-Token':curUser.token||''},body:JSON.stringify({bracket,groups})});
     const el=document.getElementById('ss');
     el.classList.add('show');
     setTimeout(()=>el.classList.remove('show'),2000);
@@ -818,9 +830,18 @@ function ago(iso){
 // ═══════════════════════════════════════
 // INIT
 // ═══════════════════════════════════════
-loadUList();
-renderAll();
-updateProg();
+(async()=>{
+  try{
+    const saved=localStorage.getItem('wc26u');
+    if(saved){
+      const {id,name,token}=JSON.parse(saved);
+      const r=await fetch(`/api/users/${id}`);
+      if(r.ok){loginUser(id,name,token);loadData(await r.json());}
+      else localStorage.removeItem('wc26u');
+    }
+  }catch(e){}
+  loadUList();renderAll();updateProg();
+})();
 </script>
 </body>
 </html>
