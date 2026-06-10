@@ -60,6 +60,7 @@ app.put('/api/users/:id', (req, res) => {
   const idx = d.users.findIndex(u => u.id === req.params.id);
   if (idx === -1) return res.status(404).json({ error: 'Not found' });
   d.users[idx].bracket = req.body.bracket || {};
+  d.users[idx].groups = req.body.groups || {};
   d.users[idx].updatedAt = new Date().toISOString();
   save(d);
   res.json({ ok: true });
