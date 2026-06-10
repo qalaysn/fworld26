@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0a0e1a" id="tc-meta">
 <title>WC 2026 — Прогнозы</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -169,6 +170,53 @@ body.light .rsp td{background:rgba(167,120,0,.04);border-top-color:rgba(167,120,
 body.light .toast{background:#fff;border-color:rgba(0,0,0,.12);color:var(--text)}
 body.light .toast.err{border-color:rgba(220,38,38,.4);color:var(--red)}
 body.light .psc{color:rgba(167,120,0,.6)}
+/* ─── BOTTOM NAV ─── */
+.bot-nav{display:none}
+.bnt{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;background:none;border:none;color:var(--muted);cursor:pointer;gap:2px;font-family:'Inter',sans-serif;padding:8px 4px;transition:color .15s;-webkit-tap-highlight-color:transparent}
+.bnt span:first-child{font-size:1.3rem;line-height:1}
+.bnt span:last-child{font-size:0.58rem;letter-spacing:.2px}
+.bnt.active{color:var(--gold)}
+/* ─── MOBILE ─── */
+@media(max-width:600px){
+  .bot-nav{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:101;background:var(--card);border-top:2px solid var(--gold);height:58px;padding-bottom:env(safe-area-inset-bottom,0)}
+  /* Hide top nav tab buttons — moved to bottom nav */
+  .nav .nb:not(#theme-btn){display:none!important}
+  .nav{padding:0 10px}
+  .nav-brand{margin-right:auto}
+  /* Views — padding for bottom nav */
+  .view{padding:12px 12px 76px!important}
+  #v-predict{padding:0!important}
+  .pw-inner{padding:0 12px!important}
+  .pview{padding-bottom:76px}
+  /* Predict bar — compact */
+  .pbar2{padding:6px 12px;gap:6px}
+  .ss{display:none}
+  .pp{font-size:0.7rem}
+  .ptabs{margin:0 -12px;padding:0 12px}
+  /* Groups */
+  .ggrid{gap:8px}
+  .gsi{width:42px;height:36px;font-size:0.95rem}
+  .gm{gap:2px;padding:4px 0}
+  /* Bracket scroll */
+  .bwrap{-webkit-overflow-scrolling:touch}
+  .scroll-hint{display:block}
+  /* Board */
+  table.board th,table.board td{padding:5px 7px;font-size:0.72rem}
+  /* User cards */
+  .user-cards{gap:8px;margin-top:12px}
+  .ucard{padding:10px 12px}
+  .btn-g{padding:7px 12px}
+  /* Third place */
+  .third-inner{flex-direction:column;gap:6px}
+  .third-inner .tb{max-width:100%}
+  /* Hero */
+  .hero{padding:18px 0 14px}
+  .name-form{margin-top:16px}
+}
+@media(max-width:380px){
+  .nav-brand{font-size:1.1rem;letter-spacing:2px}
+  .uchip{max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+}
 </style>
 </head>
 <body>
@@ -212,13 +260,14 @@ body.light .psc{color:rgba(167,120,0,.6)}
     <button class="ptab active" onclick="showPView('groups')">📋 Группы <span id="gcnt" style="font-size:0.65rem"></span></button>
     <button class="ptab" onclick="showPView('bracket')">🏆 Плей-офф <span id="bcnt" style="font-size:0.65rem"></span></button>
   </div>
-  <div style="padding:0 16px 20px">
+  <div class="pw-inner" style="padding:0 16px 20px">
     <!-- GROUPS -->
     <div id="pv-groups" class="pview active">
       <div id="ggrid" class="ggrid" style="margin-top:12px"></div>
     </div>
     <!-- BRACKET -->
     <div id="pv-bracket" class="pview">
+      <p class="scroll-hint" style="display:none;text-align:center;font-size:0.7rem;color:var(--muted);padding:4px 0 8px;letter-spacing:1px">← прокрути →</p>
       <div class="bwrap">
         <table class="bt"><colgroup><col><col><col><col><col></colgroup>
         <thead class="bt-head"><tr>
@@ -327,9 +376,12 @@ for(const g of Object.keys(GDATA)) {
 function showView(v){
   document.querySelectorAll('.view').forEach(e=>e.classList.remove('active'));
   document.querySelectorAll('.nb').forEach(e=>e.classList.remove('active'));
+  document.querySelectorAll('.bnt').forEach(e=>e.classList.remove('active'));
   document.getElementById('v-'+v).classList.add('active');
   const b=document.querySelector(`.nb[onclick*="'${v}'"]`);
   if(b)b.classList.add('active');
+  const bb=document.getElementById('bnt-'+v);
+  if(bb)bb.classList.add('active');
   if(v==='board')loadBoard();
   if(v==='home')loadUList();
 }
@@ -379,12 +431,14 @@ function loginUser(id,name,token){
   document.getElementById('nav-un').textContent=name;
   document.getElementById('pu').textContent=name;
   document.getElementById('nav-pred').style.display='';
+  document.getElementById('bnt-predict').style.display='';
 }
 function logoutPrompt(){
   if(!confirm(`Выйти из "${curUser.name}"?`))return;
   curUser=null; bState={}; resetAll(); localStorage.removeItem('wc26u');
   document.getElementById('nav-u').style.display='none';
   document.getElementById('nav-pred').style.display='none';
+  document.getElementById('bnt-predict').style.display='none';
   showView('home'); renderAll();
 }
 async function deleteUser(id,name){
@@ -395,6 +449,7 @@ async function deleteUser(id,name){
   bState={}; resetAll();
   document.getElementById('nav-u').style.display='none';
   document.getElementById('nav-pred').style.display='none';
+  document.getElementById('bnt-predict').style.display='none';
   toast(`Аккаунт удалён`); loadUList(); showView('home');
 }
 async function loadUList(){
@@ -848,6 +903,7 @@ async function loadBoard(){
 function toggleTheme(){
   const light=document.body.classList.toggle('light');
   document.getElementById('theme-btn').textContent=light?'☀️':'🌙';
+  document.getElementById('tc-meta').content=light?'#f1f5f9':'#0a0e1a';
   localStorage.setItem('wc26theme',light?'light':'dark');
 }
 function toast(msg,err=false){
@@ -872,6 +928,7 @@ function ago(iso){
   if(localStorage.getItem('wc26theme')==='light'){
     document.body.classList.add('light');
     document.getElementById('theme-btn').textContent='☀️';
+    document.getElementById('tc-meta').content='#f1f5f9';
   }
   try{
     const saved=localStorage.getItem('wc26u');
@@ -885,5 +942,10 @@ function ago(iso){
   loadUList();renderAll();updateProg();
 })();
 </script>
+<nav class="bot-nav" id="bot-nav">
+  <button class="bnt active" id="bnt-home" onclick="showView('home')"><span>🏠</span><span>Главная</span></button>
+  <button class="bnt" id="bnt-predict" onclick="showView('predict')" style="display:none"><span>✏️</span><span>Прогноз</span></button>
+  <button class="bnt" id="bnt-board" onclick="showView('board')"><span>📊</span><span>Таблица</span></button>
+</nav>
 </body>
 </html>
