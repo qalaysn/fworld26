@@ -138,6 +138,8 @@ table.board tr:hover td{background:rgba(255,255,255,.015)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toast.err{border-color:rgba(239,68,68,.4);color:var(--red)}
 hr.d{border:none;border-top:1px solid var(--border);margin:20px 0}
+.vid-wrap{position:relative;width:100%;max-width:860px;margin:0 auto 8px;border-radius:10px;overflow:hidden;aspect-ratio:16/9;background:#000;box-shadow:0 4px 32px rgba(0,0,0,.5);border:1px solid var(--border)}
+.vid-wrap iframe{position:absolute;inset:0;width:100%;height:100%}
 /* ─── LIGHT THEME ─── */
 body.light{--bg:#f1f5f9;--card:#ffffff;--card2:#eef2f7;--gold:#a77800;--green:#16a34a;--red:#dc2626;--muted:#64748b;--text:#0f172a;--border:rgba(0,0,0,.1)}
 body.light .nav{background:#fff}
@@ -246,6 +248,12 @@ body.light .psc{color:rgba(167,120,0,.6)}
   <hr class="d">
   <div class="stitle">Участники</div>
   <div id="ulist"><div class="empty">Пока нет прогнозов. Будь первым! ☝️</div></div>
+
+  <hr class="d">
+  <div class="stitle">⚽ Официальный трейлер ЧМ 2026</div>
+  <div class="vid-wrap">
+    <iframe src="https://www.youtube.com/embed/ff2k22F4qNM?rel=0&modestbranding=1" title="FIFA World Cup 2026 — Let's Make It Iconic" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+  </div>
 </div>
 
 <!-- PREDICT -->
