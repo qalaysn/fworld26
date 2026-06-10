@@ -487,8 +487,8 @@ function loadData(ud){
       if(gScores[g])Object.assign(gScores[g],ms);
     }
   }
-  // Recalculate all group standings and populate R32
-  for(const g of Object.keys(GDATA)) updateGroup(g,false);
+  // Recalculate all group standings and populate R32 slots
+  for(const g of Object.keys(GDATA)) updateGroup(g,true);
   // Load bracket picks
   if(ud.bracket){
     for(let id=1;id<=32;id++){
