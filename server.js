@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 const DATA = path.join(__dirname, 'predictions.json');
 
 app.use(express.json());
-app.use(express.static(__dirname)); // serves wc2026_predict.html etc.
+app.use(express.static(path.join(__dirname, 'public')));
 
 function load() {
   if (!fs.existsSync(DATA)) fs.writeFileSync(DATA, JSON.stringify({ users: [] }, null, 2));
