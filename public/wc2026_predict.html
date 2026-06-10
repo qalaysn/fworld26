@@ -137,6 +137,38 @@ table.board tr:hover td{background:rgba(255,255,255,.015)}
 .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
 .toast.err{border-color:rgba(239,68,68,.4);color:var(--red)}
 hr.d{border:none;border-top:1px solid var(--border);margin:20px 0}
+/* ─── LIGHT THEME ─── */
+body.light{--bg:#f1f5f9;--card:#ffffff;--card2:#eef2f7;--gold:#a77800;--green:#16a34a;--red:#dc2626;--muted:#64748b;--text:#0f172a;--border:rgba(0,0,0,.1)}
+body.light .nav{background:#fff}
+body.light .name-form input{border-color:rgba(0,0,0,.18)}
+body.light .gsi{background:#fff;border-color:rgba(0,0,0,.18)}
+body.light .gsi:focus{border-color:rgba(167,120,0,.4);color:var(--gold)}
+body.light .gsi.filled{border-color:rgba(167,120,0,.3)}
+body.light .gc-head{background:rgba(167,120,0,.06);border-bottom-color:rgba(167,120,0,.14)}
+body.light .gm{border-bottom-color:rgba(0,0,0,.05)}
+body.light .gc-st{border-top-color:rgba(0,0,0,.08)}
+body.light .sb-go{background:rgba(22,163,74,.12);color:#16a34a}
+body.light .pbar{background:rgba(0,0,0,.08)}
+body.light .tb{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.12)}
+body.light .tb:hover:not(:disabled){background:rgba(167,120,0,.07);border-color:rgba(167,120,0,.3)}
+body.light .tb.won{background:rgba(167,120,0,.1);border-color:rgba(167,120,0,.45)}
+body.light .sc-in{background:rgba(0,0,0,.03);border-color:rgba(0,0,0,.1);color:var(--gold)}
+body.light .sc-in::placeholder{color:rgba(0,0,0,.25)}
+body.light .sc-in:focus{border-color:rgba(167,120,0,.3)}
+body.light .r32-top::after,body.light .r32-bot::after,body.light .r16-top::after,body.light .r16-bot::after,body.light .qf-top::after,body.light .qf-bot::after,body.light .sf-top::after,body.light .sf-bot::after{border-right-color:rgba(167,120,0,.25)}
+body.light .r16-td::before,body.light .qf-td::before,body.light .sf-td::before,body.light .final-td::before{background:rgba(167,120,0,.25)}
+body.light thead.bt-head th{border-bottom-color:rgba(167,120,0,.2)}
+body.light .r16-td .mc{background:var(--card2);border-color:rgba(167,120,0,.12)}
+body.light .qf-td .mc{background:linear-gradient(135deg,#dce8f5,#fff);border-color:rgba(167,120,0,.15)}
+body.light .sf-td .mc{background:linear-gradient(135deg,#d5e4f3,#eef2f7);border-color:rgba(167,120,0,.2)}
+body.light .final-td .mc{background:linear-gradient(135deg,#fffbe8,#fff8d6,#fffbe8);border-color:var(--gold)}
+body.light .fsep{background:linear-gradient(90deg,transparent,rgba(167,120,0,.4),transparent)}
+body.light table.board td{border-bottom-color:rgba(0,0,0,.06)}
+body.light table.board tr:hover td{background:rgba(0,0,0,.025)}
+body.light .rsp td{background:rgba(167,120,0,.04);border-top-color:rgba(167,120,0,.1)}
+body.light .toast{background:#fff;border-color:rgba(0,0,0,.12);color:var(--text)}
+body.light .toast.err{border-color:rgba(220,38,38,.4);color:var(--red)}
+body.light .psc{color:rgba(167,120,0,.6)}
 </style>
 </head>
 <body>
@@ -147,6 +179,7 @@ hr.d{border:none;border-top:1px solid var(--border);margin:20px 0}
   <button class="nb" id="nav-pred" onclick="showView('predict')" style="display:none">✏️ Мой прогноз</button>
   <button class="nb" onclick="showView('board')">📊 Все прогнозы</button>
   <div class="nav-r">
+    <button class="nb" id="theme-btn" onclick="toggleTheme()" title="Тема" style="font-size:1rem;padding:0 10px">🌙</button>
     <div id="nav-u" class="uchip" style="display:none" onclick="logoutPrompt()">👤 <span id="nav-un"></span></div>
   </div>
 </nav>
@@ -812,6 +845,11 @@ async function loadBoard(){
 // ═══════════════════════════════════════
 // UTILS
 // ═══════════════════════════════════════
+function toggleTheme(){
+  const light=document.body.classList.toggle('light');
+  document.getElementById('theme-btn').textContent=light?'☀️':'🌙';
+  localStorage.setItem('wc26theme',light?'light':'dark');
+}
 function toast(msg,err=false){
   const t=document.getElementById('toast');
   t.textContent=msg;t.className='toast show'+(err?' err':'');
@@ -831,6 +869,10 @@ function ago(iso){
 // INIT
 // ═══════════════════════════════════════
 (async()=>{
+  if(localStorage.getItem('wc26theme')==='light'){
+    document.body.classList.add('light');
+    document.getElementById('theme-btn').textContent='☀️';
+  }
   try{
     const saved=localStorage.getItem('wc26u');
     if(saved){
