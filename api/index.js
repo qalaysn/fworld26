@@ -133,4 +133,23 @@ app.get('/api/board', async (req, res) => {
   } catch (e) { res.status(500).json({ error: e.message }); }
 });
 
+// Official results (public read, admin write)
+app.get('/api/results', async (req, res) => {
+  try {
+    const { result } = await kvCmd(['GET', 'results']);
+    res.json(result ? JSON.parse(result) : { groups: {}, bracket: {} });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
+app.put('/api/results', async (req, res) => {
+  try {
+    const token = req.headers['x-admin-token'] || '';
+    const adminTok = process.env.ADMIN_TOKEN || '';
+    if (!adminTok || token !== adminTok) return res.status(403).json({ error: 'Forbidden' });
+    const data = { groups: req.body.groups || {}, bracket: req.body.bracket || {} };
+    await kvCmd(['SET', 'results', JSON.stringify(data)]);
+    res.json({ ok: true });
+  } catch (e) { res.status(500).json({ error: e.message }); }
+});
+
 module.exports = app;

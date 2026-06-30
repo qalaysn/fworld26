@@ -69,13 +69,29 @@ app.put('/api/users/:id', (req, res) => {
 // All brackets for comparison
 app.get('/api/board', (req, res) => {
   const { users } = load();
-  res.json(users.map(u => ({ id: u.id, name: u.name, bracket: u.bracket || {} })));
+  res.json(users.map(u => ({ id: u.id, name: u.name, bracket: u.bracket || {}, groups: u.groups || {} })));
 });
 
 // Delete user
 app.delete('/api/users/:id', (req, res) => {
   const d = load();
   d.users = d.users.filter(u => u.id !== req.params.id);
+  save(d);
+  res.json({ ok: true });
+});
+
+// Official results (public read, admin write)
+app.get('/api/results', (req, res) => {
+  const d = load();
+  res.json(d.results || { groups: {}, bracket: {} });
+});
+
+app.put('/api/results', (req, res) => {
+  const token = req.headers['x-admin-token'] || '';
+  const adminToken = process.env.ADMIN_TOKEN || '';
+  if (!adminToken || token !== adminToken) return res.status(403).json({ error: 'Forbidden' });
+  const d = load();
+  d.results = { groups: req.body.groups || {}, bracket: req.body.bracket || {} };
   save(d);
   res.json({ ok: true });
 });

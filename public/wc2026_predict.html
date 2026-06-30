@@ -219,6 +219,25 @@ body.light .psc{color:rgba(167,120,0,.6)}
   .nav-brand{font-size:1.1rem;letter-spacing:2px}
   .uchip{max-width:90px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 }
+/* ─── RESULT INDICATORS ─── */
+.ri{display:inline-flex;align-items:center;justify-content:center;font-size:0.58rem;font-weight:700;padding:0 3px;border-radius:2px;line-height:1.6;flex-shrink:0;min-width:13px}
+.ri.ok{background:rgba(74,222,128,.18);color:#4ade80}
+.ri.no{background:rgba(248,113,113,.16);color:#f87171}
+/* ─── ADMIN BAR ─── */
+.admin-bar{background:rgba(239,68,68,.07);border-bottom:1px solid rgba(239,68,68,.22);padding:5px 16px;font-size:0.72rem;color:var(--red);display:none;align-items:center;gap:10px}
+.admin-bar.on{display:flex}
+/* ─── MODAL ─── */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:300;display:none;align-items:center;justify-content:center;padding:16px}
+.modal-bg.on{display:flex}
+.modal{background:var(--card);border:1px solid rgba(255,215,0,.2);border-radius:12px;padding:22px 20px;width:100%;max-width:320px}
+.modal h3{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;color:var(--gold);letter-spacing:2px;margin-bottom:14px}
+.modal input{width:100%;background:var(--card2);border:1px solid rgba(255,255,255,.15);border-radius:7px;padding:8px 12px;color:var(--text);font-size:0.9rem;font-family:'Inter',sans-serif;outline:none;margin-bottom:10px}
+.modal input:focus{border-color:rgba(255,215,0,.5)}
+.modal-btns{display:flex;gap:8px;justify-content:flex-end}
+/* score pill in board header */
+.bsco{display:inline-block;background:rgba(255,215,0,.12);color:var(--gold);border-radius:4px;padding:1px 6px;font-weight:700;font-family:'Bebas Neue',sans-serif;font-size:0.82rem;white-space:nowrap;letter-spacing:1px}
+body.light .modal input{border-color:rgba(0,0,0,.18)}
+body.light .bsco{background:rgba(167,120,0,.1)}
 </style>
 </head>
 <body>
@@ -230,9 +249,28 @@ body.light .psc{color:rgba(167,120,0,.6)}
   <button class="nb" onclick="showView('board')">📊 Все прогнозы</button>
   <div class="nav-r">
     <button class="nb" id="theme-btn" onclick="toggleTheme()" title="Тема" style="font-size:1rem;padding:0 10px">🌙</button>
+    <button class="nb" id="admin-btn" onclick="openAdminModal()" title="Admin" style="font-size:0.8rem;padding:0 8px;opacity:.25;transition:opacity .2s" onmouseenter="this.style.opacity='.9'" onmouseleave="this.style.opacity='.25'">🔑</button>
     <div id="nav-u" class="uchip" style="display:none" onclick="logoutPrompt()">👤 <span id="nav-un"></span></div>
   </div>
 </nav>
+
+<!-- ADMIN BAR -->
+<div class="admin-bar" id="admin-bar">
+  🔴 Режим администратора — вводите официальные результаты
+  <button class="btn-g" style="margin-left:auto;font-size:0.7rem;border-color:rgba(239,68,68,.3);color:var(--red)" onclick="exitAdminMode()">✕ Выйти</button>
+</div>
+
+<!-- ADMIN MODAL -->
+<div class="modal-bg" id="admin-modal" onclick="if(event.target===this)this.classList.remove('on')">
+  <div class="modal">
+    <h3>🔑 Администратор</h3>
+    <input type="password" id="admin-pw" placeholder="Токен доступа…" onkeydown="if(event.key==='Enter')adminLogin()">
+    <div class="modal-btns">
+      <button class="btn-g" onclick="document.getElementById('admin-modal').classList.remove('on')">Отмена</button>
+      <button class="btn" onclick="adminLogin()">Войти</button>
+    </div>
+  </div>
+</div>
 
 <!-- HOME -->
 <div id="v-home" class="view active">
@@ -370,12 +408,25 @@ let teams = {};     // {matchId:{a:team|null, b:team|null}}
 let bState = {};    // bracket picks {matchId:{winner,side,score}}
 let curUser = null;
 let saveTimer = null;
+// Results state
+let realResults = {groups:{}, bracket:{}};
+let adminMode = false;
+let adminToken = '';
+let _savedState = null;
+let rScores = {};
+let rBState = {};
+let rTeams = {};
 
 for(let id=1;id<=32;id++) teams[id]={a:null,b:null};
 for(const g of Object.keys(GDATA)) {
   gScores[g]={};
-  for(let i=0;i<6;i++) gScores[g][`${g}${i}`]={h:null,a:null};
+  rScores[g]={};
+  for(let i=0;i<6;i++){
+    gScores[g][`${g}${i}`]={h:null,a:null};
+    rScores[g][`${g}${i}`]={h:null,a:null};
+  }
 }
+for(let id=1;id<=32;id++) rTeams[id]={a:null,b:null};
 
 // ═══════════════════════════════════════
 // VIEWS
@@ -526,11 +577,12 @@ function resetAll(){
 // ═══════════════════════════════════════
 // GROUP STAGE LOGIC
 // ═══════════════════════════════════════
-function calcStandings(gid){
+function calcStandings(gid,sc){
+  const scores=sc||gScores[gid];
   const ts=GDATA[gid].teams.map((t,i)=>({...t,i,pts:0,w:0,d:0,l:0,gf:0,ga:0,gd:0,played:0}));
   for(let mi=0;mi<6;mi++){
     const[hi,ai]=GM[mi];
-    const s=gScores[gid][`${gid}${mi}`];
+    const s=scores[`${gid}${mi}`];
     if(s.h===null||s.a===null)continue;
     const h=ts[hi],a=ts[ai];
     h.gf+=s.h;h.ga+=s.a;h.gd=h.gf-h.ga;h.played++;
@@ -687,6 +739,11 @@ function renderGroupStandings(g,st){
 
 function renderStandingsHTML(g,st){
   const thirdAdvances=THIRD_GROUPS.has(g);
+  let realAdv=null;
+  if(!adminMode&&realResults.groups&&realResults.groups[g]){
+    const rst=calcStandings(g,realResults.groups[g]);
+    realAdv=new Set([rst[0].n,rst[1].n]);
+  }
   return st.map((t,i)=>{
     let badge,color;
     if(i<2){badge='✓ выходит';color='sb-go';}
@@ -694,11 +751,13 @@ function renderStandingsHTML(g,st){
     else if(i===2){badge='исключён';color='sb-out';}
     else{badge='исключён';color='sb-out';}
     const gd=t.gd>=0?'+'+t.gd:t.gd;
+    const ri=realAdv&&i<2?`<span class="ri ${realAdv.has(t.n)?'ok':'no'}">${realAdv.has(t.n)?'✓':'✗'}</span>`:'';
     return `<div class="st-row">
       <span class="st-pos" style="color:${i<2?'var(--green)':i===2&&thirdAdvances?'var(--gold)':'var(--muted)'}">${i+1}</span>
       <span class="st-team">${t.f} ${t.n}</span>
       <span class="st-pts">${t.pts}</span>
       <span class="st-gd">${t.played?gd:'—'}</span>
+      ${ri}
       <span class="st-badge ${color}">${badge}</span>
     </div>`;
   }).join('');
@@ -732,8 +791,18 @@ function renderMC(id){
 function mcInner(id){
   const t=teams[id];
   const rlbl=id>16?`<div class="mc-rlbl">${MD[id].r} · M${id}</div>`:'';
-  const btnA=`<button class="tb" id="m${id}a" onclick="pick(${id},'a')" ${!t.a?'disabled':''}><span class="tf">${t.a?.f||'—'}</span><span class="tn">${t.a?.n||'Ждём…'}</span></button>`;
-  const btnB=`<button class="tb" id="m${id}b" onclick="pick(${id},'b')" ${!t.b?'disabled':''}><span class="tf">${t.b?.f||'—'}</span><span class="tn">${t.b?.n||'Ждём…'}</span></button>`;
+  let riA='',riB='';
+  if(!adminMode){
+    const real=(realResults.bracket||{})[String(id)];
+    const pred=bState[id];
+    if(real?.winner?.n&&pred?.winner?.n){
+      const ok=pred.winner.n===real.winner.n;
+      if(pred.side==='a')riA=`<span class="ri ${ok?'ok':'no'}">${ok?'✓':'✗'}</span>`;
+      else riB=`<span class="ri ${ok?'ok':'no'}">${ok?'✓':'✗'}</span>`;
+    }
+  }
+  const btnA=`<button class="tb" id="m${id}a" onclick="pick(${id},'a')" ${!t.a?'disabled':''}><span class="tf">${t.a?.f||'—'}</span><span class="tn">${t.a?.n||'Ждём…'}</span>${riA}</button>`;
+  const btnB=`<button class="tb" id="m${id}b" onclick="pick(${id},'b')" ${!t.b?'disabled':''}><span class="tf">${t.b?.f||'—'}</span><span class="tn">${t.b?.n||'Ждём…'}</span>${riB}</button>`;
   return `${rlbl}${btnA}${btnB}<input class="sc-in" id="m${id}s" placeholder="счёт" maxlength="7" oninput="setScore(${id},this.value)">`;
 }
 
@@ -826,6 +895,7 @@ function updateProg(){
 // ═══════════════════════════════════════
 function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveAll,2000);}
 async function saveAll(){
+  if(adminMode){saveResults();return;}
   if(!curUser)return;
   clearTimeout(saveTimer);
   const bracket={};
@@ -854,54 +924,176 @@ async function loadBoard(){
     const r=await fetch('/api/board');
     const us=await r.json();
     if(!us.length){el.innerHTML='<div class="empty">Пока нет прогнозов.</div>';return;}
+
+    // Compute scores and sort by score desc
+    const scored=us.map(u=>({...u,...calcUserScore(u)})).sort((a,b)=>b.score-a.score||a.name.localeCompare(b.name));
+    const hasReal=Object.keys(realResults.bracket||{}).length>0;
+
     let html=`<div class="board-wrap"><table class="board"><thead><tr>
       <th>Матч</th><th>Команды</th>
-      ${us.map(u=>`<th class="uth">${esc(u.name)}</th>`).join('')}
+      ${scored.map(u=>`<th class="uth">${esc(u.name)}${hasReal&&u.possible>0?`<br><span class="bsco">${u.score}/${u.possible}</span> <span style="font-family:'Inter';font-size:0.62rem;color:var(--muted)">${Math.round(u.score/u.possible*100)}%</span>`:''}</th>`).join('')}
     </tr></thead><tbody>`;
 
-    // Group stage section
-    html+=`<tr class="rsp"><td colspan="${2+us.length}">ГРУППОВОЙ ЭТАП (счёт матча)</td></tr>`;
+    // Group stage
+    html+=`<tr class="rsp"><td colspan="${2+scored.length}">ГРУППОВОЙ ЭТАП (счёт матча)</td></tr>`;
     for(const g of Object.keys(GDATA)){
       const ts=GDATA[g].teams;
       for(let mi=0;mi<6;mi++){
         const[hi,ai]=GM[mi];
+        const realS=(realResults.groups?.[g]?.[`${g}${mi}`])||{h:null,a:null};
         html+=`<tr>
           <td style="color:var(--muted);font-size:0.72rem">Гр ${g}-${mi+1}</td>
           <td style="font-size:0.75rem;color:var(--muted)">${ts[hi].f}${ts[hi].n} vs ${ts[ai].f}${ts[ai].n}</td>
-          ${us.map(u=>{
+          ${scored.map(u=>{
             const s=(u.groups?.[g]?.[`${g}${mi}`])||{h:null,a:null};
             if(s.h===null||s.a===null)return`<td><span class="pe">—</span></td>`;
-            return`<td style="text-align:center"><span class="pw">${s.h}–${s.a}</span></td>`;
+            const hasR=realS.h!==null&&realS.a!==null;
+            const exact=hasR&&s.h===realS.h&&s.a===realS.a;
+            const bg=exact?'background:rgba(74,222,128,.07);':'';
+            return`<td style="text-align:center;${bg}"><span class="pw">${s.h}–${s.a}</span></td>`;
           }).join('')}
         </tr>`;
       }
     }
 
-    // Bracket section
-    const rounds=['R32','R16','QF','SF','Final'];
+    // Bracket
+    // Use rTeams for real match-ups if available, else teams (current user's state)
+    const boardTeams=hasReal?rTeams:teams;
     let lastR='';
     for(let id=1;id<=31;id++){
       const m=MD[id];
       if(m.r!==lastR){
         const rn={R32:'1/8 ФИНАЛА',R16:'1/4 ФИНАЛА',QF:'ЧЕТВЕРТЬФИНАЛЫ',SF:'ПОЛУФИНАЛЫ',Final:'ФИНАЛ'}[m.r]||m.r;
-        html+=`<tr class="rsp"><td colspan="${2+us.length}">${rn}</td></tr>`;
+        html+=`<tr class="rsp"><td colspan="${2+scored.length}">${rn}</td></tr>`;
         lastR=m.r;
       }
-      const t1=teams[id]?.a,t2=teams[id]?.b;
+      const t1=boardTeams[id]?.a,t2=boardTeams[id]?.b;
       const tStr=id<=16?`${t1?.f||'?'}${t1?.n||'?'} vs ${t2?.f||'?'}${t2?.n||'?'}`:`Матч ${id}`;
+      const realPick=(realResults.bracket||{})[String(id)];
       html+=`<tr>
         <td style="color:var(--muted);font-size:0.72rem">${m.r}-${id}</td>
         <td style="font-size:0.75rem;color:var(--muted)">${tStr}</td>
-        ${us.map(u=>{
+        ${scored.map(u=>{
           const p=(u.bracket||{})[String(id)];
-          if(!p||!p.winner)return`<td><span class="pe">—</span></td>`;
-          return`<td style="text-align:center"><span class="pw">${p.winner.f} ${p.winner.n}</span>${p.score?`<span class="psc"> ${p.score}</span>`:''}  </td>`;
+          if(!p?.winner)return`<td><span class="pe">—</span></td>`;
+          const ok=realPick?.winner?.n&&p.winner.n===realPick.winner.n;
+          const bad=realPick?.winner?.n&&p.winner.n!==realPick.winner.n;
+          const bg=ok?'background:rgba(74,222,128,.07);':bad?'background:rgba(248,113,113,.07);':'';
+          return`<td style="text-align:center;${bg}">${ok?'<span class="ri ok">✓</span> ':bad?'<span class="ri no">✗</span> ':''}<span class="pw">${p.winner.f} ${p.winner.n}</span>${p.score?`<span class="psc"> ${p.score}</span>`:''}</td>`;
         }).join('')}
       </tr>`;
     }
     html+='</tbody></table></div>';
     el.innerHTML=html;
   }catch(e){el.innerHTML='<div class="empty">Ошибка. Сервер запущен?</div>';}
+}
+
+// ═══════════════════════════════════════
+// OFFICIAL RESULTS
+// ═══════════════════════════════════════
+function calcUserScore(u){
+  let score=0,possible=0;
+  for(let id=1;id<=31;id++){
+    const real=(realResults.bracket||{})[String(id)];
+    if(!real?.winner?.n)continue;
+    possible++;
+    if((u.bracket||{})[String(id)]?.winner?.n===real.winner.n)score++;
+  }
+  return{score,possible};
+}
+
+async function loadRealResults(){
+  try{
+    const r=await fetch('/api/results');
+    if(!r.ok)return;
+    const d=await r.json();
+    realResults=d;
+    // Pre-load rScores
+    if(d.groups){for(const[g,ms]of Object.entries(d.groups)){if(rScores[g])Object.assign(rScores[g],ms);}}
+    // Pre-load rBState
+    if(d.bracket){for(const[k,v]of Object.entries(d.bracket))rBState[k]=v;}
+    // Build rTeams from rScores (R32 group slots)
+    for(const g of Object.keys(GDATA)){
+      const st=calcStandings(g,rScores[g]);
+      for(const[mid,slots]of Object.entries(R32S)){
+        const id=Number(mid);
+        for(const side of['a','b']){
+          const def=slots[side];
+          if(!def||def[1]!==g)continue;
+          const team=def[0]==='1'?st[0]:def[0]==='2'?st[1]:def[0]==='3'?st[2]:null;
+          if(team)rTeams[id][side]={n:team.n,f:team.f};
+        }
+      }
+    }
+    // Propagate bracket picks into rTeams
+    for(let id=1;id<=32;id++){
+      const p=rBState[id];
+      if(!p?.winner||!p?.side)continue;
+      const m=MD[id];
+      if(m.nx)rTeams[m.nx][m.sl]=p.winner;
+      if(id===29||id===30){
+        const loser=p.side==='a'?rTeams[id].b:rTeams[id].a;
+        if(loser)rTeams[32][id===29?'a':'b']=loser;
+      }
+    }
+  }catch(e){}
+}
+
+// ─── ADMIN MODE ───────────────────────
+function openAdminModal(){
+  document.getElementById('admin-pw').value='';
+  document.getElementById('admin-modal').classList.add('on');
+  setTimeout(()=>document.getElementById('admin-pw').focus(),60);
+}
+
+function adminLogin(){
+  const token=document.getElementById('admin-pw').value.trim();
+  if(!token)return;
+  document.getElementById('admin-modal').classList.remove('on');
+  enterAdminMode(token);
+}
+
+function enterAdminMode(token){
+  if(adminMode)return;
+  adminToken=token; adminMode=true;
+  _savedState={gScores,bState,teams};
+  gScores=rScores; bState=rBState; teams=rTeams;
+  document.getElementById('admin-bar').classList.add('on');
+  document.getElementById('nav-pred').style.display='';
+  document.getElementById('bnt-predict').style.display='';
+  document.getElementById('pu').textContent='РЕЗУЛЬТАТЫ';
+  document.querySelector('.save-btn').textContent='🔴 Сохранить результаты';
+  renderAll(); updateProg(); showView('predict');
+}
+
+function exitAdminMode(){
+  if(!adminMode)return;
+  adminMode=false; adminToken='';
+  rScores=gScores; rBState=bState; rTeams=teams;
+  if(_savedState){gScores=_savedState.gScores;bState=_savedState.bState;teams=_savedState.teams;_savedState=null;}
+  document.getElementById('admin-bar').classList.remove('on');
+  document.querySelector('.save-btn').textContent='💾 Сохранить';
+  if(curUser){
+    document.getElementById('pu').textContent=curUser.name;
+  }else{
+    document.getElementById('nav-pred').style.display='none';
+    document.getElementById('bnt-predict').style.display='none';
+  }
+  renderAll(); updateProg(); showView('home');
+}
+
+async function saveResults(){
+  if(!adminMode)return;
+  const groups={};
+  for(const[g,ms]of Object.entries(gScores)){groups[g]={};for(const[k,v]of Object.entries(ms))groups[g][k]=v;}
+  const bracket={};
+  for(const[k,v]of Object.entries(bState))if(v)bracket[k]=v;
+  try{
+    const resp=await fetch('/api/results',{method:'PUT',headers:{'Content-Type':'application/json','X-Admin-Token':adminToken},body:JSON.stringify({groups,bracket})});
+    const d=await resp.json();
+    if(d.ok){realResults={groups,bracket};toast('Результаты сохранены ✓');}
+    else toast(d.error||'Ошибка (неверный токен?)',true);
+  }catch(e){toast('Ошибка сети',true);}
 }
 
 // ═══════════════════════════════════════
@@ -937,6 +1129,7 @@ function ago(iso){
     document.getElementById('theme-btn').textContent='☀️';
     document.getElementById('tc-meta').content='#f1f5f9';
   }
+  await loadRealResults();
   try{
     const saved=localStorage.getItem('wc26u');
     if(saved){
